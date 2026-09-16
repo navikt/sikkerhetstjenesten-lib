@@ -2,7 +2,7 @@ name: Lag release
 
 on:
   release:
-    types: [published]
+    types: [created, published]
 
 jobs:
   publish-release:
