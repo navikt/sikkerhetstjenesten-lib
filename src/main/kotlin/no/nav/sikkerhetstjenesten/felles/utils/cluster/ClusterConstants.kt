@@ -1,4 +1,4 @@
-package no.nav.felles.utils.cluster
+package no.nav.sikkerhetstjenesten.felles.utils.cluster
 
 object ClusterConstants {
     const val LOCAL = "local"

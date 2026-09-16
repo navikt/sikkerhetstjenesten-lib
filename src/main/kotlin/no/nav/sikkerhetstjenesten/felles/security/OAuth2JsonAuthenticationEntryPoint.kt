@@ -1,4 +1,4 @@
-package no.nav.felles.security
+package no.nav.sikkerhetstjenesten.felles.security
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.servlet.http.HttpServletRequest

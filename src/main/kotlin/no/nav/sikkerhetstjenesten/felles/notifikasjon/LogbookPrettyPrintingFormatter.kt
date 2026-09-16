@@ -1,4 +1,4 @@
-package no.nav.felles.notifikasjon
+package no.nav.sikkerhetstjenesten.felles.notifikasjon
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.zalando.logbook.Correlation

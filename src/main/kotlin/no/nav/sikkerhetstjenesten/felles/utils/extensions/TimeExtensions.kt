@@ -1,4 +1,4 @@
-package no.nav.felles.utils.extensions
+package no.nav.sikkerhetstjenesten.felles.utils.extensions
 
 import java.time.Instant
 import java.time.LocalDateTime

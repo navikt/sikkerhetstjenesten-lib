@@ -1,16 +1,16 @@
-package no.nav.felles.utils.cluster
+package no.nav.sikkerhetstjenesten.felles.utils.cluster
 
 import java.lang.System.getenv
 import java.lang.System.setProperty
 
 enum class ClusterUtils(val clusterName: String) {
-    TEST_CLUSTER(ClusterConstants.TEST),
-    LOCAL_CLUSTER(ClusterConstants.LOCAL),
-    DEV_GCP_CLUSTER(ClusterConstants.DEV_GCP),
-    PROD_GCP_CLUSTER(ClusterConstants.PROD_GCP);
+    TEST_CLUSTER(_root_ide_package_.no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterConstants.TEST),
+    LOCAL_CLUSTER(_root_ide_package_.no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterConstants.LOCAL),
+    DEV_GCP_CLUSTER(_root_ide_package_.no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterConstants.DEV_GCP),
+    PROD_GCP_CLUSTER(_root_ide_package_.no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterConstants.PROD_GCP);
 
     companion object {
-        val current = (getenv(ClusterConstants.NAIS_CLUSTER_NAME) ?: ClusterConstants.LOCAL)
+        val current = (getenv(_root_ide_package_.no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterConstants.NAIS_CLUSTER_NAME) ?: _root_ide_package_.no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterConstants.LOCAL)
             .let { env -> entries.first { it.clusterName == env } }
 
         val isProd = current == PROD_GCP_CLUSTER

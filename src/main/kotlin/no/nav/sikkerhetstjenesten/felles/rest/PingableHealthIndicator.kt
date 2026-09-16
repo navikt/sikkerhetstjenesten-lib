@@ -1,10 +1,10 @@
-package no.nav.felles.rest
+package no.nav.sikkerhetstjenesten.felles.rest
 
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.boot.actuate.health.Health
 import org.springframework.boot.actuate.health.HealthIndicator
 
-class PingableHealthIndicator(private val pingable: Pingable) : HealthIndicator {
+class PingableHealthIndicator(private val pingable: no.nav.sikkerhetstjenesten.felles.rest.Pingable) : HealthIndicator {
     private val log = getLogger(javaClass)
 
     override fun health() =

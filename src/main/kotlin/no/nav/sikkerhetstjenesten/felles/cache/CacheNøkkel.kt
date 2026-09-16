@@ -1,4 +1,4 @@
-package no.nav.felles.cache
+package no.nav.sikkerhetstjenesten.felles.cache
 
 data class CacheNøkkel(val nøkkel: String) {
     private val elementer = nøkkel.split("::", ":")

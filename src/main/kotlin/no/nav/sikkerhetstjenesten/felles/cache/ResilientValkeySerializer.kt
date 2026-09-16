@@ -1,4 +1,4 @@
-package no.nav.felles.cache
+package no.nav.sikkerhetstjenesten.felles.cache
 
 import io.micrometer.core.instrument.MeterRegistry
 import org.slf4j.LoggerFactory.getLogger

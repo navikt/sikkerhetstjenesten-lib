@@ -1,4 +1,4 @@
-package no.nav.felles.cache
+package no.nav.sikkerhetstjenesten.felles.cache
 
 data class CacheNøkkelConfig(val name: String, val extraPrefix: String? = null) {
     val fullName: String get() = extraPrefix?.let { "$name:$it" } ?: name

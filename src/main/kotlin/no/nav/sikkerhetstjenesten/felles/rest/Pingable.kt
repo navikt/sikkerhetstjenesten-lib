@@ -1,4 +1,4 @@
-package no.nav.felles.rest
+package no.nav.sikkerhetstjenesten.felles.rest
 
 import java.net.URI
 
