@@ -7,7 +7,15 @@ plugins {
 }
 
 group = "no.nav.felles"
-version = "0.1.0"
+
+fun normalizeVersion(raw: String): String = raw.trim().removePrefix("v").removePrefix("V")
+
+version = providers
+    .gradleProperty("releaseVersion")
+    .orElse(providers.environmentVariable("RELEASE_VERSION"))
+    .orElse("0.1.0-SNAPSHOT")
+    .map(::normalizeVersion)
+    .get()
 
 repositories {
     mavenCentral()
