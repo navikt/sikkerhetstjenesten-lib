@@ -1,1 +1,1 @@
-rootProject.name = "nav-kotlin-felles"
+rootProject.name = "sikkerhetstjenesten-lib"
