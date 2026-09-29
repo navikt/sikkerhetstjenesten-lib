@@ -13,7 +13,7 @@ object TimeExtensions {
 
     val ALLTID get() = LocalDate.now().plusYears(100)
     val IMORGEN get() = LocalDate.now().plusDays(1)
-    val IGÅR get() = LocalDate.now().minusDays
+    val IGÅR get() = LocalDate.now().minusDays(1)
     fun java.time.Duration.format() = this.toKotlinDuration().format()
 
     fun Duration.format(): String {
