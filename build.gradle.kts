@@ -3,7 +3,8 @@ import org.gradle.api.publish.maven.MavenPublication
 plugins {
     `java-library`
     `maven-publish`
-    kotlin("jvm") version "2.1.21"
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
 }
 
 group = "no.nav.felles"
@@ -19,6 +20,9 @@ version = providers
 
 repositories {
     mavenCentral()
+    maven {
+        url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
+    }
 }
 
 publishing {
@@ -54,18 +58,18 @@ kotlin {
 }
 
 dependencies {
-    implementation(platform("org.springframework.boot:spring-boot-dependencies:3.4.1"))
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.boot:spring-boot-starter-security")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("jakarta.servlet:jakarta.servlet-api")
-    implementation("org.zalando:logbook-spring-boot-starter:3.7.2")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("io.micrometer:micrometer-core")
+    // Spring Boot BOM to align versions of version-less starter artifacts
+    api(platform("org.springframework.boot:spring-boot-dependencies:${libs.versions.spring.boot.get()}"))
 
-    testImplementation(kotlin("test"))
-    testImplementation("org.junit.jupiter:junit-jupiter:5.11.3")
-    testImplementation("org.springframework:spring-test")
+    // Exposed in public API (constructors/interfaces implemented by classes in this library)
+    api(libs.spring.boot.starter.web)
+    api(libs.logbook.spring.boot.starter)
+    api(libs.jackson.module.kotlin)
+
+    // Used internally only
+    implementation(libs.spring.boot.starter.oauth2.resource.server)
+    implementation(libs.slack)
+    implementation(libs.boot.conditionals)
 }
 
 tasks.test {

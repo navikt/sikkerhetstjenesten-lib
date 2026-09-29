@@ -1,15 +1,15 @@
-package no.nav.sikkerhetstjenesten.felles.notifikasjon
+package no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.zalando.logbook.Correlation
 import org.zalando.logbook.HttpLogFormatter
 import org.zalando.logbook.HttpRequest
 import org.zalando.logbook.HttpResponse
 import org.zalando.logbook.Precorrelation
 import org.zalando.logbook.json.JsonHttpLogFormatter
+import tools.jackson.databind.json.JsonMapper
 
-class LogbookPrettyPrintingFormatter(private val mapper: ObjectMapper) : HttpLogFormatter {
-    private val delegate = JsonHttpLogFormatter(mapper)
+class LogbookPrettyPrintingFormatter(private val mapper: JsonMapper) : HttpLogFormatter {
+    private val delegate = JsonHttpLogFormatter(mapper, true)
 
     override fun format(precorrelation: Precorrelation, request: HttpRequest) =
         prettyPrint(delegate.format(precorrelation, request))
