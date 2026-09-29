@@ -1,6 +1,7 @@
 package no.nav.sikkerhetstjenesten.felles.utils.extensions
 
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -10,6 +11,9 @@ import kotlin.time.toKotlinDuration
 object TimeExtensions {
     val OSLO: ZoneId = ZoneId.of("Europe/Oslo")
 
+    val ALLTID get() = LocalDate.now().plusYears(100)
+    val IMORGEN get() = LocalDate.now().plusDays(1)
+    val IGÅR get() = LocalDate.now().minusDays
     fun java.time.Duration.format() = this.toKotlinDuration().format()
 
     fun Duration.format(): String {
