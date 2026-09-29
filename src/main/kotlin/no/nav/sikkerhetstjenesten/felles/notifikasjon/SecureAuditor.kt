@@ -1,7 +1,5 @@
-package no.nav.tilgangsmaskin.felles.rest.notifikasjon
+package no.nav.sikkerhetstjenesten.felles.notifikasjon
 
-import no.nav.boot.conditionals.ConditionalOnGCP
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.AbstractAuditor
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 

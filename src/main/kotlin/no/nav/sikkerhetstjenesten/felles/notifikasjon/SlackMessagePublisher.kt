@@ -1,4 +1,4 @@
-package no.nav.tilgangsmaskin.felles.rest.notifikasjon
+package no.nav.sikkerhetstjenesten.felles.notifikasjon
 import com.slack.api.Slack.getInstance
 import com.slack.api.model.block.Blocks.asBlocks
 import com.slack.api.model.block.Blocks.header
@@ -7,13 +7,12 @@ import com.slack.api.model.block.composition.BlockCompositions.markdownText
 import com.slack.api.model.block.composition.BlockCompositions.plainText
 import com.slack.api.webhook.Payload
 import com.slack.api.webhook.Payload.builder
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.MessagePublisher
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
-import no.nav.tilgangsmaskin.felles.rest.notifikasjon.SlackMessagePublisher.Emoji.DEV
-import no.nav.tilgangsmaskin.felles.rest.notifikasjon.SlackMessagePublisher.Emoji.ERROR
-import no.nav.tilgangsmaskin.felles.rest.notifikasjon.SlackMessagePublisher.Emoji.INFO
-import no.nav.tilgangsmaskin.felles.rest.notifikasjon.SlackMessagePublisher.Emoji.PROD
-import no.nav.tilgangsmaskin.felles.rest.notifikasjon.SlackMessagePublisher.Emoji.WARN
+import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.DEV
+import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.ERROR
+import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.INFO
+import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.PROD
+import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.WARN
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus.OK
