@@ -34,7 +34,7 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/navikt")
+            url = uri("https://maven.pkg.github.com/navikt/sikkerhetstjenesten-lib")
             credentials {
                 username = System.getenv("GITHUB_ACTOR") ?: "x-access-token"
                 password = System.getenv("GITHUB_TOKEN") ?: ""
