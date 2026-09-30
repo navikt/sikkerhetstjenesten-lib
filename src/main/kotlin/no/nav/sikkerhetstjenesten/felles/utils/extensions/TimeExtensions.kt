@@ -6,9 +6,11 @@ import java.time.Instant
 import java.time.Instant.now
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Period
+import java.time.Period.ofYears
 import java.time.ZoneId
 import java.time.ZoneId.systemDefault
-import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeFormatter.ofPattern
 import kotlin.time.Duration
 import kotlin.time.toKotlinDuration
 
@@ -46,5 +48,25 @@ object TimeExtensions {
     fun Long.local(fmt: String = "yyyy-MM-dd HH:mm:ss") = LocalDateTime.ofInstant(
         Instant.ofEpochMilli(this),
         OSLO,
-    ).format(DateTimeFormatter.ofPattern(fmt))
+    ).format(ofPattern(fmt))
+
+
+    fun LocalDate.månederSidenIdag(clock: Clock): Int {
+        val today = LocalDate.now(clock)
+        require(!isAfter(today)) { "Datoen $this er etter dagens dato $today" }
+        val p = Period.between(this, today)
+        val rundetOpp = if (today.dayOfMonth > dayOfMonth) 1 else 0
+        return (p.years * 12 + p.months + rundetOpp).coerceAtLeast(1)
+    }
+
+
+
+    fun LocalDate.isBetween(start: LocalDate, end: LocalDate) = this in start..end
+
+    private fun component(value: Long, singular: String, plural: String) =
+        value.takeIf { it > 0 }?.let { "$it ${if (it == 1L) singular else plural}" }
+
+
+    val Int.år: Period get() = ofYears(this)
+
 }
