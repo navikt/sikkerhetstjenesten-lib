@@ -35,7 +35,7 @@ enum class ClusterUtils(val clusterName: String) {
         }
     }
 
-    internal fun profilerFor(cluster: ClusterUtils) =
+     fun profilerFor(cluster: ClusterUtils) =
         when (cluster) {
             TEST_CLUSTER,
             LOCAL_CLUSTER ->
