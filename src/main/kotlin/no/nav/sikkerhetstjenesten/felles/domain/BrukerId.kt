@@ -2,6 +2,7 @@ package no.nav.sikkerhetstjenesten.felles.domain
 
 import com.fasterxml.jackson.annotation.JsonValue
 import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.maskFnr
+import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.requireDigits
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
 
 data class BrukerId(@JsonValue val verdi: String) : Comparable<BrukerId> {

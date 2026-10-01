@@ -18,7 +18,7 @@ class JacksonTypeInfoAddingValkeyModule : SimpleModule() {
         ctx.insertAnnotationIntrospector(object : AnnotationIntrospector() {
             override fun findTypeResolverBuilder(config: MapperConfig<*>, ann: Annotated) =
                 StdTypeResolverBuilder().init(
-                    construct(CLASS, PROPERTY, "@class", null, true, true), null)
+                    construct(CLASS, PROPERTY, "@class", null, true, true,null), null)
 
             override fun version() = unknownVersion()
         })
