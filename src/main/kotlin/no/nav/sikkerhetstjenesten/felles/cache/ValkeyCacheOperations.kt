@@ -12,7 +12,6 @@ import org.springframework.data.redis.core.Cursor
 import org.springframework.data.redis.core.ScanOptions
 import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.core.script.RedisScript
-import org.springframework.stereotype.Component
 import java.time.Duration
 import java.util.UUID
 import kotlin.reflect.KClass
@@ -23,7 +22,6 @@ import kotlin.time.TimeSource.Monotonic.markNow
 private val BATCH_SIZE = 10_000
 private val SCRIPT = RedisScript.of(ClassPathResource("scripts/count-all-keys.lua"), List::class.java)
 
-@Component
 class ValkeyCacheOperations(
     private val valkey: StringRedisTemplate,
     vararg cfgs: CachableRestConfig) : CacheOperations {

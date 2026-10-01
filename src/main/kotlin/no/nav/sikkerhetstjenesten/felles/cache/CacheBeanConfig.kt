@@ -2,9 +2,11 @@ package no.nav.sikkerhetstjenesten.felles.cache
 
 import no.nav.boot.conditionals.ConditionalOnGCP
 import no.nav.sikkerhetstjenesten.entraproxy.felles.cache.ResilientValkeySerializer
+import no.nav.sikkerhetstjenesten.entraproxy.felles.cache.ValkeyCacheOperations
 import no.nav.sikkerhetstjenesten.felles.rest.PingableHealthIndicator
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.data.redis.autoconfigure.DataRedisProperties
 import org.springframework.cache.annotation.CachingConfigurer
 import org.springframework.cache.interceptor.CacheErrorHandler
 import org.springframework.context.annotation.Bean
@@ -13,6 +15,7 @@ import org.springframework.data.redis.cache.RedisCacheManager
 import org.springframework.data.redis.cache.RedisCacheWriter.nonLockingRedisCacheWriter
 import org.springframework.data.redis.config.RedisListenerConfigurer
 import org.springframework.data.redis.connection.RedisConnectionFactory
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.data.redis.listener.RedisMessageListenerContainer
 import org.springframework.data.redis.serializer.GenericJacksonJsonRedisSerializer
 import org.springframework.data.redis.serializer.RedisMessageConverters
@@ -50,8 +53,16 @@ class CacheBeanConfig(private val cf: RedisConnectionFactory,
 
 
     @Bean
+    fun cachePingable(valkey: StringRedisTemplate, properties: DataRedisProperties) =
+        CachePingable(valkey, properties)
+
+    @Bean
     fun cacheHealthIndicator(pingable: CachePingable) =
         PingableHealthIndicator(pingable)
+
+    @Bean
+    fun valkeyCacheOperations(valkey: StringRedisTemplate) =
+        ValkeyCacheOperations(valkey, *cfgs)
 
 
     private fun cacheConfig(cfg: CachableRestConfig) =

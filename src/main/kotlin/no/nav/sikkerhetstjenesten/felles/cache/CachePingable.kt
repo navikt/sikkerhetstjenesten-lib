@@ -4,12 +4,10 @@ package no.nav.sikkerhetstjenesten.felles.cache
 import no.nav.sikkerhetstjenesten.felles.rest.Pingable
 import org.springframework.boot.data.redis.autoconfigure.DataRedisProperties
 import org.springframework.data.redis.core.StringRedisTemplate
-import org.springframework.stereotype.Component
 import java.net.URI
 
 private const val PONG = "pong"
 
-@Component
 class CachePingable(
     private val valkey: StringRedisTemplate,
     properties: DataRedisProperties) : Pingable {
