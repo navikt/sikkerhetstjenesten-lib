@@ -12,6 +12,7 @@ Included candidates:
 - `no.nav.felles.utils.extensions.TimeExtensions`
 - `no.nav.felles.rest.Pingable`
 - `no.nav.felles.rest.PingableHealthIndicator`
+- `no.nav.sikkerhetstjenesten.felles.rest.RestHeaderAddingRequestInterceptor`
 - `no.nav.felles.security.OAuth2JsonAuthenticationEntryPoint`
 - `no.nav.felles.security.OAuth2JsonAccessDeniedHandler`
 - `no.nav.felles.notifikasjon.LogbookPrettyPrintingFormatter`
