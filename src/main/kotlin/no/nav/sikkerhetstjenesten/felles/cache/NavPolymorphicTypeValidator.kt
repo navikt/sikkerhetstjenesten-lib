@@ -6,7 +6,7 @@ import tools.jackson.databind.jsontype.PolymorphicTypeValidator
 import tools.jackson.databind.jsontype.PolymorphicTypeValidator.Validity.ALLOWED
 import tools.jackson.databind.jsontype.PolymorphicTypeValidator.Validity.DENIED
 
-class NavPolymorphicTypeValidator(private vararg val allowedPrefixes: String = arrayOf("no.nav.sikkerhetstjenesten",
+class NavPolymorphicTypeValidator(private vararg val allowedPrefixes: String = arrayOf("no.nav.sikkerhetstjenesten","no.nav.tilgangsmaskin",
     "java.",
     "kotlin.")) : PolymorphicTypeValidator() {
 
