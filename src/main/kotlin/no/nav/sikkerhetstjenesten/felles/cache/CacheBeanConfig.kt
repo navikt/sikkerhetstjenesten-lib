@@ -30,22 +30,17 @@ import tools.jackson.module.kotlin.KotlinModule.Builder
 @AutoConfiguration
 @ConditionalOnGCP
 class CacheBeanConfig(private val cf: RedisConnectionFactory,
-                      private val errorHandler: CacheErrorHandler,
+                      private val registry: MeterRegistry,
                       private vararg val cfgs: CachableRestConfig) : CachingConfigurer, RedisListenerConfigurer {
 
     private val log = getLogger(javaClass)
 
-    override fun errorHandler() =
-        errorHandler
+    override fun errorHandler(): CacheErrorHandler =
+        CacheMeteredErrorHandler(registry)
 
     override fun configureMessageConverters(builder: RedisMessageConverters.Builder) {
         builder.addCustomConverter(CacheNøkkelMessageConverter())
     }
-
-    @Bean
-    fun cacheMeteredErrorHandler(registry: MeterRegistry): CacheErrorHandler =
-        CacheMeteredErrorHandler(registry)
-
 
     @Bean
     override fun cacheManager() =
