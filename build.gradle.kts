@@ -60,12 +60,17 @@ kotlin {
 dependencies {
     // Spring Boot BOM to align versions of version-less starter artifacts
     api(platform("org.springframework.boot:spring-boot-dependencies:${libs.versions.spring.boot.get()}"))
+    // OpenTelemetry instrumentation BOM to align versions of version-less instrumentation artifacts
+    api(platform(libs.opentelemetry.instrumentation.bom))
 
     // Exposed in public API (constructors/interfaces implemented by classes in this library)
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.webclient)
     api(libs.logbook.spring.boot.starter)
     api(libs.jackson.module.kotlin)
+    api(libs.spring.boot.starter.data.redis)
+    api(libs.bundles.observability)
+    api(libs.spring.boot.starter.actuator)
 
     // Used internally only
     implementation(libs.spring.boot.starter.oauth2.resource.server)
