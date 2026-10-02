@@ -9,7 +9,7 @@ abstract class AbstractCacheOppfrisker : CacheOppfrisker {
 
     protected abstract fun doOppfrisk(nøkkelElementer: CacheNøkkel)
 
-    final override fun oppfrisk(nøkkelElementer: CacheNøkkel) {
+    override fun oppfrisk(nøkkelElementer: CacheNøkkel) {
         val duration = measureTimeMillis {
             runCatching {
                 doOppfrisk(nøkkelElementer)
