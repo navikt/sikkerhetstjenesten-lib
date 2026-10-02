@@ -1,10 +1,7 @@
-package no.nav.sikkerhetstjenesten.entraproxy.felles.cache
+package no.nav.sikkerhetstjenesten.felles.cache
 
 import no.nav.sikkerhetstjenesten.felles.cache.CacheBeanConfig.Companion.VALKEY_MAPPER
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
-import no.nav.sikkerhetstjenesten.felles.cache.CachableRestConfig
-import no.nav.sikkerhetstjenesten.felles.cache.CacheNøkkelConfig
-import no.nav.sikkerhetstjenesten.felles.cache.CacheOperations
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isLocalOrTest
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.core.io.ClassPathResource
