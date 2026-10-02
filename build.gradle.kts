@@ -66,6 +66,7 @@ dependencies {
     // Exposed in public API (constructors/interfaces implemented by classes in this library)
     api(libs.spring.boot.starter.web)
     api(libs.spring.boot.starter.webclient)
+    api(libs.spring.boot.starter.graphql)
     api(libs.logbook.spring.boot.starter)
     api(libs.jackson.module.kotlin)
     api(libs.spring.boot.starter.data.redis)
