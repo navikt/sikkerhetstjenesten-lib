@@ -1,7 +1,5 @@
-package no.nav.sikkerhetstjenesten.entraproxy.felles.cache
+package no.nav.sikkerhetstjenesten.felles.cache
 
-import no.nav.sikkerhetstjenesten.felles.cache.CacheNøkkel
-import no.nav.sikkerhetstjenesten.felles.cache.CacheOppfrisker
 import no.nav.sikkerhetstjenesten.felles.leder.LeaderAware
 import org.springframework.data.redis.annotation.RedisListener
 import org.springframework.stereotype.Component
