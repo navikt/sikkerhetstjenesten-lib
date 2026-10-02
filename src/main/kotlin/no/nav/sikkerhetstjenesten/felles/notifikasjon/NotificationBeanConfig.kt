@@ -1,15 +1,8 @@
-package no.nav.tilgangsmaskin.felles.rest.notifikasjon
+package no.nav.sikkerhetstjenesten.felles.notifikasjon
 
 import no.nav.boot.conditionals.ConditionalOnGCP
 import no.nav.boot.conditionals.ConditionalOnNotProd
 import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.maskFnr
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.Auditor
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.LocalAuditor
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.LoggingMessagePublisher
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.MessagePublisher
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.RestRetryLogger
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.SecureAuditor
-import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookNimbusJwtClaimsExtractor
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookPrettyPrintingFormatter
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookStatusAtLeastExcluding

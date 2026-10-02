@@ -1,4 +1,4 @@
-package no.nav.sikkerhetstjenesten.entraproxy.felles.rest
+package no.nav.sikkerhetstjenesten.felles.rest
 
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.context.event.EventListener

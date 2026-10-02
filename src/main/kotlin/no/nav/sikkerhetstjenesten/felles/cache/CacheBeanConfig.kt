@@ -2,7 +2,6 @@ package no.nav.sikkerhetstjenesten.felles.cache
 
 import io.micrometer.core.instrument.MeterRegistry
 import no.nav.boot.conditionals.ConditionalOnGCP
-import no.nav.sikkerhetstjenesten.entraproxy.felles.cache.ResilientValkeySerializer
 import no.nav.sikkerhetstjenesten.felles.rest.PingableHealthIndicator
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.boot.autoconfigure.AutoConfiguration

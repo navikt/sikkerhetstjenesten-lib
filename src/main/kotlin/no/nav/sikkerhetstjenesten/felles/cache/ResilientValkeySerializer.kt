@@ -1,4 +1,4 @@
-package no.nav.sikkerhetstjenesten.entraproxy.felles.cache
+package no.nav.sikkerhetstjenesten.felles.cache
 
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.data.redis.serializer.RedisSerializer

@@ -1,8 +1,7 @@
-package no.nav.sikkerhetstjenesten.entraproxy.felles.rest
+package no.nav.sikkerhetstjenesten.felles.rest
 
 
 import io.lettuce.core.RedisCommandTimeoutException
-import no.nav.sikkerhetstjenesten.felles.rest.RecoverableRestException
 import org.springframework.core.annotation.AliasFor
 import org.springframework.dao.QueryTimeoutException
 import org.springframework.resilience.annotation.Retryable
