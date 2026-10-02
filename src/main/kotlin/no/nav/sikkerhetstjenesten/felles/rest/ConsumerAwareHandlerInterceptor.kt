@@ -15,7 +15,7 @@ class ConsumerAwareHandlerInterceptor(private val token: AuthContext, private va
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
         MDC.put(CONSUMER_ID, token.systemAndNs)
-        token.ansattId?.verdi?.let { MDC.put(USER_ID, it) }
+        token.navIdent?.let { MDC.put(USER_ID, it) }
         registry.counter(METRIC, Tags.of("remote_system",token.systemNavn)).increment()
         return true
     }

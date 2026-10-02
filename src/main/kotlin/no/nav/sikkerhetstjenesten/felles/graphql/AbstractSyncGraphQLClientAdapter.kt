@@ -1,8 +1,8 @@
 package no.nav.sikkerhetstjenesten.felles.graphql
 
-import no.nav.sikkerhetstjenesten.felles.rest.RestConfig
 import no.nav.sikkerhetstjenesten.felles.NoCoverageAnalysis
 import no.nav.sikkerhetstjenesten.felles.rest.IrrecoverableRestException
+import no.nav.sikkerhetstjenesten.felles.rest.RestConfig
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.graphql.client.GraphQlClient
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR

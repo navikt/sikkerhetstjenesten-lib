@@ -2,19 +2,12 @@ package no.nav.sikkerhetstjenesten.felles.rest
 
 
 import org.slf4j.LoggerFactory.getLogger
-import org.springframework.context.annotation.Primary
 import org.springframework.http.HttpRequest
-import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.HttpStatus.REQUEST_TIMEOUT
 import org.springframework.http.HttpStatus.TOO_MANY_REQUESTS
-import org.springframework.http.HttpStatusCode
-import org.springframework.http.ProblemDetail.forStatusAndDetail
 import org.springframework.http.client.ClientHttpResponse
-import org.springframework.stereotype.Component
-import org.springframework.web.ErrorResponseException
 import org.springframework.web.client.RestClient.ResponseSpec.ErrorHandler
-import java.net.URI
 
 class DefaultRestErrorHandler : ErrorHandler {
     private val log = getLogger(javaClass)

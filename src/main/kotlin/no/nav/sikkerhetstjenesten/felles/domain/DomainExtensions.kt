@@ -1,15 +1,12 @@
 
 package no.nav.sikkerhetstjenesten.felles.domain
 
-import no.nav.sikkerhetstjenesten.felles.domain.BrukerId.Companion.BRUKERID_LENGTH
-
-
 object DomainExtensions {
     const val UTILGJENGELIG = "N/A"
 
     fun String.maskFnr() =
         when (length) {
-            BRUKERID_LENGTH -> replaceRange(4, 11, "*******")
+            11 -> replaceRange(4, 11, "*******")
             13 -> replaceRange(6, 13, "*******")
             else -> this
         }

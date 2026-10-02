@@ -1,6 +1,5 @@
 package no.nav.sikkerhetstjenesten.felles.security
 
-import no.nav.sikkerhetstjenesten.felles.domain.AnsattId
 import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.UTILGJENGELIG
 import no.nav.sikkerhetstjenesten.felles.security.TokenType.CCF
 import no.nav.sikkerhetstjenesten.felles.security.TokenType.OBO
@@ -22,7 +21,7 @@ class AuthContext {
 
     val system get() = stringClaim(AZP_NAME) ?: UTILGJENGELIG
     val oid get() = stringClaim(OID)?.let { runCatching { UUID.fromString(it) }.getOrNull() }
-    val ansattId get() = stringClaim(NAVIDENT)?.let(::AnsattId)
+    val navIdent get() = stringClaim(NAVIDENT)
     val clusterAndSystem
         get() = system.split(":").let { parts ->
             if (parts.size == 3) "${parts[2]}:${parts[0]}" else system

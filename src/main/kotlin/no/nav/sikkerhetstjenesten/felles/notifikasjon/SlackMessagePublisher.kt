@@ -7,12 +7,12 @@ import com.slack.api.model.block.composition.BlockCompositions.markdownText
 import com.slack.api.model.block.composition.BlockCompositions.plainText
 import com.slack.api.webhook.Payload
 import com.slack.api.webhook.Payload.builder
-import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.DEV
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.ERROR
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.INFO
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.PROD
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.SlackMessagePublisher.Emoji.WARN
+import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus.OK

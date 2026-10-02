@@ -1,14 +1,14 @@
 package no.nav.sikkerhetstjenesten.felles.leder
 
 import io.netty.channel.ChannelOption.CONNECT_TIMEOUT_MILLIS
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
-import reactor.netty.http.client.HttpClient
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.ApplicationEventPublisher
 import org.springframework.context.annotation.Bean
+import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.web.reactive.function.client.WebClient
+import reactor.netty.http.client.HttpClient
 import java.net.URI
 
 @AutoConfiguration

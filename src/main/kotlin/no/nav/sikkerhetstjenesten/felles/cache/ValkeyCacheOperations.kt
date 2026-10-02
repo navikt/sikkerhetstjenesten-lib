@@ -1,8 +1,8 @@
 package no.nav.sikkerhetstjenesten.felles.cache
 
 import no.nav.sikkerhetstjenesten.felles.cache.CacheBeanConfig.Companion.VALKEY_MAPPER
-import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isLocalOrTest
+import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.core.io.ClassPathResource
 import org.springframework.data.redis.core.Cursor
