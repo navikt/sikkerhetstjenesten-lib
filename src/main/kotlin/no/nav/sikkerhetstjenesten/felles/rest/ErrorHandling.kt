@@ -37,23 +37,3 @@ class DefaultRestErrorHandler : ErrorHandler {
     }
 }
 
-open class IrrecoverableRestException(
-    status: HttpStatusCode, uri: URI, msg: String = (status as HttpStatus).reasonPhrase,
-    cause: Throwable? = null) : ErrorResponseException(status, problemDetail(status, msg, uri), cause)
-
-class NotFoundRestException(
-    val uri: URI,
-    val msg: String,
-    cause: Throwable? = null) : IrrecoverableRestException(NOT_FOUND, uri, msg, cause)
-
-open class RecoverableRestException(
-    status: HttpStatusCode,
-    uri: URI,
-    msg: String = (status as HttpStatus).reasonPhrase,
-    cause: Throwable? = null) : ErrorResponseException(status, problemDetail(status, msg, uri), cause)
-
-private fun problemDetail(status: HttpStatusCode, msg: String, uri: URI) =
-    forStatusAndDetail(status, msg).apply {
-        title = "${status.value()}"
-        properties = mapOf("uri" to "$uri")
-    }
