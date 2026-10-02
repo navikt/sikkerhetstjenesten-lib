@@ -41,8 +41,8 @@ class CacheBeanConfig(private val cf: RedisConnectionFactory,
         builder.addCustomConverter(CacheNøkkelMessageConverter())
     }
 
-    @Bean
-    override fun cacheManager() =
+    @Bean(name = ["cacheManager"])
+    fun redisCacheManager() =
         RedisCacheManager.builder(nonLockingRedisCacheWriter(cf))
             .withInitialCacheConfigurations(cfgs.associate {
                 it.navn to cacheConfig(it)
@@ -117,5 +117,4 @@ private class CacheMeteredErrorHandler(private val registry: MeterRegistry) : Ca
         log.warn("Cache $op feilet for ${cache.name}: ${e.message}")
     }
 }
-
 
