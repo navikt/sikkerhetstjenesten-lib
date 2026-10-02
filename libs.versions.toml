@@ -27,6 +27,7 @@ confluent-kafka-avro-serializer = { module = "io.confluent:kafka-avro-serializer
 contract-pdl-avro = { module = "no.nav.pdl.libs:contract-pdl-avro", version.ref = "contract-pdl-avro" }
 flyway-database-postgresql = { module = "org.flywaydb:flyway-database-postgresql" }
 hibernate-micrometer = { module = "org.hibernate.orm:hibernate-micrometer" }
+httpclient5 = { module = "org.apache.httpcomponents.client5:httpclient5" }
 jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-bom = { module = "io.kotest:kotest-bom", version.ref = "kotest" }
@@ -42,6 +43,7 @@ postgresql = { module = "org.postgresql:postgresql" }
 slack = { module = "com.slack.api:slack-api-client-kotlin-extension", version.ref = "slack-api" }
 spring-boot-micrometer-metrics-test = { module = "org.springframework.boot:spring-boot-micrometer-metrics-test" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
+spring-boot-starter-aspectj = { module = "org.springframework.boot:spring-boot-starter-aspectj" }
 spring-boot-starter-cache = { module = "org.springframework.boot:spring-boot-starter-cache" }
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa" }
 spring-boot-starter-data-jpa-test = { module = "org.springframework.boot:spring-boot-starter-data-jpa-test" }

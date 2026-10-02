@@ -1,2 +1,3 @@
 no.nav.sikkerhetstjenesten.felles.leder.LederBeanConfiguration
 no.nav.sikkerhetstjenesten.felles.cache.CacheBeanConfig
+no.nav.sikkerhetstjenesten.felles.rest.health.ObservabilityBeanConfig

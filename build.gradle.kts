@@ -71,6 +71,8 @@ dependencies {
     api(libs.spring.boot.starter.data.redis)
     api(libs.bundles.observability)
     api(libs.spring.boot.starter.actuator)
+    api(libs.spring.boot.starter.aspectj)
+    api(libs.httpclient5)
 
     // Used internally only
     implementation(libs.spring.boot.starter.oauth2.resource.server)
