@@ -1,4 +1,4 @@
-package no.nav.sikkerhetstjenesten.entraproxy.felles.rest
+package no.nav.sikkerhetstjenesten.felles.rest
 
 
 import io.micrometer.core.instrument.MeterRegistry
