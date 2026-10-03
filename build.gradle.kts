@@ -76,6 +76,7 @@ dependencies {
     api(libs.httpclient5)
 
     // Used internally only
+    implementation(libs.spring.boot.starter.oauth2.client)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.slack)
     implementation(libs.boot.conditionals)
