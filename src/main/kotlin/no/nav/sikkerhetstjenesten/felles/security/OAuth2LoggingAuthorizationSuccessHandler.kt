@@ -1,6 +1,6 @@
 package no.nav.sikkerhetstjenesten.felles.security
 
-import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.UTILGJENGELIG
+import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.UTILGJENGELIG
 import no.nav.sikkerhetstjenesten.felles.rest.DownstreamURIContext.currentUri
 import no.nav.sikkerhetstjenesten.felles.utils.extensions.TimeExtensions.OSLO
 import org.slf4j.LoggerFactory.getLogger

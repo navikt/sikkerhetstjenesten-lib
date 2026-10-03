@@ -1,6 +1,6 @@
 package no.nav.sikkerhetstjenesten.felles.security
 
-import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.UTILGJENGELIG
+import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.UTILGJENGELIG
 import no.nav.sikkerhetstjenesten.felles.security.TokenType.CCF
 import no.nav.sikkerhetstjenesten.felles.security.TokenType.OBO
 import no.nav.sikkerhetstjenesten.felles.security.TokenType.UNAUTHENTICATED

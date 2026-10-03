@@ -2,7 +2,7 @@ package no.nav.sikkerhetstjenesten.felles.notifikasjon
 
 import no.nav.boot.conditionals.ConditionalOnGCP
 import no.nav.boot.conditionals.ConditionalOnNotProd
-import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.maskFnr
+import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.maskFnr
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookNimbusJwtClaimsExtractor
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookPrettyPrintingFormatter
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookStatusAtLeastExcluding
