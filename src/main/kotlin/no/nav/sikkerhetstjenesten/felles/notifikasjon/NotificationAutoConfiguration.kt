@@ -8,6 +8,7 @@ import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookPrettyPrint
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookStatusAtLeastExcluding
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.autoconfigure.AutoConfiguration
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Fallback
 import org.springframework.http.HttpStatus.NOT_FOUND
@@ -38,7 +39,8 @@ class NotificationAutoConfiguration {
 
     @Bean
     @ConditionalOnGCP
-    fun slackMessagePublisher(@Value("\${slack.webhook:}") url: String): MessagePublisher =
+    @ConditionalOnProperty(prefix = "slack", name = ["webhook"])
+    fun slackMessagePublisher(@Value($$"${slack.webhook}") url: String): MessagePublisher =
         SlackMessagePublisher(url)
 
     @Bean
