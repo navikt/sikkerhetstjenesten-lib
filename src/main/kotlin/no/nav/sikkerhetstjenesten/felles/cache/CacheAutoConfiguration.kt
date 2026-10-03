@@ -26,7 +26,7 @@ import tools.jackson.module.kotlin.KotlinModule.Builder
 
 @AutoConfiguration
 @ConditionalOnGCP
-class CacheBeanConfig(private val cf: RedisConnectionFactory,
+class CacheAutoConfiguration(private val cf: RedisConnectionFactory,
                       private val registry: MeterRegistry,
                       private vararg val cfgs: CachableRestConfig) : CachingConfigurer, RedisListenerConfigurer {
 
@@ -95,5 +95,4 @@ class CacheBeanConfig(private val cf: RedisConnectionFactory,
         }.build()
     }
 }
-
 

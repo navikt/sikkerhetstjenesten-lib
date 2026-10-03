@@ -13,7 +13,7 @@ import java.net.URI
 
 @AutoConfiguration
 @ConditionalOnProperty("elector.sse.url")
-class LederBeanConfiguration {
+class LederAutoConfiguration {
 
     @Bean
     fun sseLederUtvelger(client: WebClient, @Value($$"${elector.sse.url}") uri: URI) =

@@ -18,7 +18,7 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.StringRedisTemplate
 import java.util.function.Supplier
 
-class CacheBeanConfigTest {
+class CacheAutoConfigurationTest {
 
     @Test
     fun `caching uses the managed manager with initialized JSON serialization`() {
@@ -38,7 +38,7 @@ class CacheBeanConfigTest {
                     override val caches = setOf(CacheNøkkelConfig(navn))
                 }
             })
-            context.register(CachingTestConfig::class.java, CacheBeanConfig::class.java)
+            context.register(CachingTestConfig::class.java, CacheAutoConfiguration::class.java)
             context.addBeanFactoryPostProcessor {
                 it.getBeanDefinition("redisMessageListenerContainer").propertyValues.add("autoStartup", false)
                 it.getBeanDefinition("valkeyCacheOperations").isLazyInit = true

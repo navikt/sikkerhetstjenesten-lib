@@ -22,7 +22,7 @@ import tools.jackson.databind.json.JsonMapper
 private val BRUKER_ID_REGEX = Regex("""(?<!\d)\d{11}(?!\d)""")
 
 @AutoConfiguration
-class NotificationBeanConfig {
+class NotificationAutoConfiguration {
 
     @Bean
     @Fallback

@@ -1,6 +1,6 @@
 package no.nav.sikkerhetstjenesten.felles.cache
 
-import no.nav.sikkerhetstjenesten.felles.cache.CacheBeanConfig.Companion.VALKEY_MAPPER
+import no.nav.sikkerhetstjenesten.felles.cache.CacheAutoConfiguration.Companion.VALKEY_MAPPER
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isLocalOrTest
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isProd
 import org.slf4j.LoggerFactory.getLogger
@@ -233,10 +233,3 @@ class ValkeyCacheOperations(
         }
 }
 
-/* TODO Move */
-fun String.maskFnr() =
-    when (length) {
-        11 -> replaceRange(4, 11, "*******")
-        13 -> replaceRange(6, 13, "*******")
-        else -> this
-    }

@@ -19,7 +19,7 @@ private val SENSITIVE_KEYS = setOf("password", "secret", "token", "key", "creden
 @AutoConfiguration
 @ConditionalOnClass(MeterRegistry::class)
 @EnableAspectJAutoProxy
-class ObservabilityBeanConfig {
+class ObservabilityAutoConfiguration {
 
     @Bean
     fun sanitizingFunction() = SanitizingFunction { data ->
