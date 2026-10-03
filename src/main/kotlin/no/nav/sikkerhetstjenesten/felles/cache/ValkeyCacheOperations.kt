@@ -14,6 +14,7 @@ import java.util.UUID
 import kotlin.reflect.KClass
 import kotlin.text.Charsets.UTF_8
 import kotlin.time.TimeSource.Monotonic.markNow
+import no.nav.sikkerhetstjenesten.felles.domain.DomainExtensions.maskFnr
 
 
 private val BATCH_SIZE = 10_000
