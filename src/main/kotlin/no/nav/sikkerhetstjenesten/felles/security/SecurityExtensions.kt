@@ -5,7 +5,7 @@ import org.springframework.security.config.http.SessionCreationPolicy.STATELESS
 
 object SecurityExtensions {
 
-    private fun HttpSecurity.stateless() =
+     fun HttpSecurity.stateless() =
         requestCache { it.disable() }
             .sessionManagement { it.sessionCreationPolicy(STATELESS) }
             .csrf { it.disable() }
