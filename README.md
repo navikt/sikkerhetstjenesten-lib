@@ -17,4 +17,5 @@ Included candidates:
 - `no.nav.felles.security.OAuth2JsonAccessDeniedHandler`
 - `no.nav.felles.notifikasjon.LogbookPrettyPrintingFormatter`
 
+
 This is intentionally framework-facing but avoids app-specific business logic or claims handling.

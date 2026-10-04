@@ -11,16 +11,6 @@ permissions:
 
 jobs:
 
-  release-notes:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Release Drafter
-        uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9 # v7.7.0
-        id: drafter
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   build:
     runs-on: ubuntu-latest
 
@@ -43,3 +33,17 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./gradlew clean test --no-daemon
+
+  release-notes:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Release Drafter
+        uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9 # v7.7.0
+        id: drafter
+        with:
+          publish: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
