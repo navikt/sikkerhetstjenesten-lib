@@ -82,6 +82,8 @@ dependencies {
     implementation(libs.boot.conditionals)
     testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.springframework:spring-test")
+    testImplementation(libs.bundles.kotest)
+    testImplementation(libs.springmockk)
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
 }
 
