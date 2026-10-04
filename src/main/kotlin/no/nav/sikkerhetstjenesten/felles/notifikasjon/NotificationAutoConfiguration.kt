@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Fallback
-import org.springframework.http.HttpStatus.NOT_FOUND
+import org.springframework.http.HttpStatus.CONTINUE
 import org.springframework.security.config.observation.SecurityObservationSettings
 import org.zalando.logbook.Logbook
 import org.zalando.logbook.attributes.AttributeExtractor
@@ -60,7 +60,7 @@ class NotificationAutoConfiguration {
     @ConditionalOnNotProd
     fun logbook(formatter: LogbookPrettyPrintingFormatter, jwtClaimsExtractor: AttributeExtractor) =
         Logbook.builder()
-            .strategy(LogbookStatusAtLeastExcluding(NOT_FOUND))
+            .strategy(LogbookStatusAtLeastExcluding(CONTINUE))
             .bodyFilter { _, body ->
                 BRUKER_ID_REGEX.replace(body) { m -> m.value.maskFnr() }
             }
