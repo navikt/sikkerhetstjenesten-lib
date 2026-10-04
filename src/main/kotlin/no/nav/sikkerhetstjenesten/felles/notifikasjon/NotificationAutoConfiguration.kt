@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Fallback
 import org.springframework.http.HttpStatus.NOT_FOUND
+import org.springframework.security.config.observation.SecurityObservationSettings
 import org.zalando.logbook.Logbook
 import org.zalando.logbook.attributes.AttributeExtractor
 import org.zalando.logbook.core.Conditions.exclude

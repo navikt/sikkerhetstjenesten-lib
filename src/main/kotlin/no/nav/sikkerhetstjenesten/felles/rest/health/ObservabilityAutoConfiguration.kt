@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.EnableAspectJAutoProxy
+import org.springframework.security.config.observation.SecurityObservationSettings
 import java.util.function.Function
 
 private val SENSITIVE_KEYS = setOf("password", "secret", "token", "key", "credentials", "jwk", "private_key")
@@ -21,6 +22,12 @@ private val SENSITIVE_KEYS = setOf("password", "secret", "token", "key", "creden
 @EnableAspectJAutoProxy
 class ObservabilityAutoConfiguration {
 
+
+    @Bean
+    fun securityObservationSettings()  =
+        SecurityObservationSettings.withDefaults().shouldObserveRequests(false)
+            .build()
+    
     @Bean
     fun sanitizingFunction() = SanitizingFunction { data ->
         if (SENSITIVE_KEYS.any { data.key.contains(it, ignoreCase = true) }) data.withValue(SANITIZED_VALUE) else data
