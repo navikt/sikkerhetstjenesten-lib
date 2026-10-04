@@ -39,6 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      packages: write
+    outputs:
+      tag_name: ${{ steps.drafter.outputs.tag_name }}
     steps:
       - name: Release Drafter
         uses: release-drafter/release-drafter@34d80673e067bdc0c24568d3af899c216adcfaa9 # v7.7.0
@@ -47,3 +50,41 @@ jobs:
           publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  publish:
+    # release-drafter publishes the release using GITHUB_TOKEN, which does not
+    # trigger other workflows (e.g. release.yml's `on: release: published`).
+    # Publish the artifact directly here instead of relying on that event.
+    needs: release-notes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@dd06d9cba3e5552c54d9f8ea23572deb30010f7c # v6.0.0
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Setup build cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      - name: Publish artifact
+        env:
+          NEW_VERSION: ${{ needs.release-notes.outputs.tag_name }}
+          GITHUB_ACTOR: x-access-token
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew publish -PreleaseVersion="${NEW_VERSION}"
