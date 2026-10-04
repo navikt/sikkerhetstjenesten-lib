@@ -27,7 +27,7 @@ class ObservabilityAutoConfiguration {
     fun securityObservationSettings()  =
         SecurityObservationSettings.withDefaults().shouldObserveRequests(false)
             .build()
-    
+
     @Bean
     fun sanitizingFunction() = SanitizingFunction { data ->
         if (SENSITIVE_KEYS.any { data.key.contains(it, ignoreCase = true) }) data.withValue(SANITIZED_VALUE) else data
