@@ -2,8 +2,8 @@ package no.nav.sikkerhetstjenesten.felles.security
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import org.springframework.http.HttpStatus
-import org.springframework.http.MediaType
+import org.springframework.http.HttpStatus.FORBIDDEN
+import org.springframework.http.MediaType.APPLICATION_PROBLEM_JSON_VALUE
 import org.springframework.security.access.AccessDeniedException
 import org.springframework.security.web.access.AccessDeniedHandler
 import tools.jackson.databind.json.JsonMapper
@@ -19,11 +19,11 @@ abstract class AbstractOAuth2JsonAccessDeniedHandler(
     override fun handle(req: HttpServletRequest, res: HttpServletResponse, e: AccessDeniedException) {
         preHandle(req, res)
         with(res) {
-            status = HttpStatus.FORBIDDEN.value()
-            contentType = MediaType.APPLICATION_PROBLEM_JSON_VALUE
+            status = FORBIDDEN.value()
+            contentType = APPLICATION_PROBLEM_JSON_VALUE
             mapper.writeValue(
                 writer,
-                securityProblemDetail(HttpStatus.FORBIDDEN, e.message ?: "Access Denied", typeUri),
+                securityProblemDetail(FORBIDDEN, e.message ?: "Access Denied", typeUri),
             )
         }
     }
