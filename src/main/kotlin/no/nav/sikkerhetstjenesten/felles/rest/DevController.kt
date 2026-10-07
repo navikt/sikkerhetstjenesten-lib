@@ -6,10 +6,12 @@ import org.springframework.core.annotation.AliasFor
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import io.swagger.v3.oas.annotations.tags.Tag
+import kotlin.annotation.AnnotationRetention.RUNTIME
+import kotlin.annotation.AnnotationTarget.CLASS
 
 
-@Target(AnnotationTarget.CLASS)
-@Retention(AnnotationRetention.RUNTIME)
+@Target(CLASS)
+@Retention(RUNTIME)
 @ConditionalOnNotProd
 @RestController
 @RequestMapping
