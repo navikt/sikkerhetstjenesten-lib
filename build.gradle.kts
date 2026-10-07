@@ -74,6 +74,7 @@ dependencies {
     api(libs.spring.boot.starter.actuator)
     api(libs.spring.boot.starter.aspectj)
     api(libs.httpclient5)
+    api(libs.springdoc.openapi.webmvc.ui)
 
     // Used internally only
     implementation(libs.spring.boot.starter.oauth2.client)
