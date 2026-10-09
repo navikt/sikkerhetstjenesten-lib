@@ -19,19 +19,12 @@ abstract class AbstractSyncGraphQLClientAdapter(
     protected inline fun <reified T : Any> query(query: Pair<String, String>, vars: Map<String, String>): T? =
         query(query, vars, T::class.java)
 
-    protected inline fun <reified T : Any> queryList(query: Pair<String, String>, vars: Map<String, String>): List<T>? =
-        queryList(query, vars, T::class.java)
 
     protected inline fun <reified T : Any> queryRequired(query: Pair<String, String>, vars: Map<String, String>): T =
         query<T>(query, vars) ?: throw IrrecoverableRestException(INTERNAL_SERVER_ERROR,
             cfg.baseUri,
             "Fant ikke feltet ${query.second} i responsen")
-
-    protected inline fun <reified T : Any> queryListRequired(query: Pair<String, String>, vars: Map<String, String>)  =
-        queryList<T>(query, vars) ?: throw IrrecoverableRestException(INTERNAL_SERVER_ERROR,
-            cfg.baseUri,
-            "Fant ikke feltet ${query.second} i responsen")
-
+    
     protected fun <T : Any> query(query: Pair<String, String>, vars: Map<String, String>, type: Class<T>): T? =
         runCatching {
             client
