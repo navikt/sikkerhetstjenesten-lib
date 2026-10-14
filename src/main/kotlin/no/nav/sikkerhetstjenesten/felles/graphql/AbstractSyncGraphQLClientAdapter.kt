@@ -24,7 +24,7 @@ abstract class AbstractSyncGraphQLClientAdapter(
         query<T>(query, vars) ?: throw IrrecoverableRestException(INTERNAL_SERVER_ERROR,
             cfg.baseUri,
             "Fant ikke feltet ${query.second} i responsen")
-    
+
     protected fun <T : Any> query(query: Pair<String, String>, vars: Map<String, String>, type: Class<T>): T? =
         runCatching {
             client

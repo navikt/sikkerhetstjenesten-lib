@@ -48,16 +48,16 @@ class NotificationAutoConfiguration {
     fun restRetryLogger() = RestRetryLogger()
 
     @Bean
-    @ConditionalOnNotProd
+    @ConditionalOnGCP
     fun logbookJwtClaimsExtractor(): AttributeExtractor = LogbookNimbusJwtClaimsExtractor()
 
     @Bean
-    @ConditionalOnNotProd
+    @ConditionalOnGCP
     fun logbookPrettyPrintingFormatter(mapper: JsonMapper) =
         LogbookPrettyPrintingFormatter(mapper)
 
     @Bean
-    @ConditionalOnNotProd
+    @ConditionalOnGCP
     fun logbook(formatter: LogbookPrettyPrintingFormatter, jwtClaimsExtractor: AttributeExtractor) =
         Logbook.builder()
             .strategy(LogbookStatusAtLeastExcluding(CONTINUE))
