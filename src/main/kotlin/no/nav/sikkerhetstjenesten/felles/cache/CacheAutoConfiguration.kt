@@ -64,6 +64,10 @@ class CacheAutoConfiguration(private val cf: RedisConnectionFactory,
     fun cacheSizeAware(cache: CacheOperations) =
         CacheSizeAware(cache, *cfgs)
 
+    @Bean
+    fun valkeyEventListeningCacheOppfrisker(oppfriskere: List<CacheOppfrisker>) =
+        ValkeyEventListeningCacheOppfrisker(oppfriskere = oppfriskere.toTypedArray())
+
 
 
 
