@@ -6,10 +6,10 @@ import org.slf4j.MDC
 import kotlin.system.measureTimeMillis
 
 
-abstract class AbstractCacheOppfrisker(private val caches: Set<CacheNøkkelConfig>) : CacheOppfrisker {
+abstract class AbstractCacheOppfrisker(private val cfg: CachableRestConfig) : CacheOppfrisker {
     protected val log = getLogger(javaClass)
 
-    override val cacheName = caches.map { it.name }.distinct()
+    override val cacheName = cfg.caches.map { it.name }.distinct()
         .also { require(it.size == 1) { "Alle cacher må ha nøyaktig ett felles name, men fikk $it" } }
         .single()
 
@@ -27,7 +27,8 @@ abstract class AbstractCacheOppfrisker(private val caches: Set<CacheNøkkelConfi
         }
         log.info("Oppfrisking tok ${duration}ms for $nøkkelElementer")
     }
-    protected fun loggOppfriskingFeilet(elementer: CacheNøkkel, feil: Throwable) {
+
+    private fun loggOppfriskingFeilet(elementer: CacheNøkkel, feil: Throwable) {
         log.warn("Oppfrisking av $elementer feilet", feil)
     }
 }
