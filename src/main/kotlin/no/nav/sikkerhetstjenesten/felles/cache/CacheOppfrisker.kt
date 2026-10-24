@@ -4,7 +4,7 @@ import org.slf4j.LoggerFactory.getLogger
 import kotlin.system.measureTimeMillis
 
 
-abstract class AbstractCacheOppfrisker(private vararg val caches: CacheNøkkelConfig) : CacheOppfrisker {
+abstract class AbstractCacheOppfrisker(private val caches: Set<CacheNøkkelConfig>) : CacheOppfrisker {
     protected val log = getLogger(javaClass)
 
     override val cacheName = caches.map { it.name }.distinct()
