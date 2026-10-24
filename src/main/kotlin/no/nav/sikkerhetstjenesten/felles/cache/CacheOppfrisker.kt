@@ -4,8 +4,10 @@ import org.slf4j.LoggerFactory.getLogger
 import kotlin.system.measureTimeMillis
 
 
-abstract class AbstractCacheOppfrisker(override val cacheName: String) : CacheOppfrisker {
+abstract class AbstractCacheOppfrisker(private val cache: CacheNøkkelConfig) : CacheOppfrisker {
     protected val log = getLogger(javaClass)
+
+    override val cacheName get() = cache.name
 
     protected abstract fun doOppfrisk(nøkkelElementer: CacheNøkkel)
 
