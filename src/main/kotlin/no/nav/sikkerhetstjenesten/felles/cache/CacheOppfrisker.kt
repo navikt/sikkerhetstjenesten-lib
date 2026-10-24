@@ -1,6 +1,8 @@
 package no.nav.sikkerhetstjenesten.felles.cache
 
+import no.nav.sikkerhetstjenesten.felles.rest.ConsumerAwareHandlerInterceptor.Companion.USER_ID
 import org.slf4j.LoggerFactory.getLogger
+import org.slf4j.MDC
 import kotlin.system.measureTimeMillis
 
 
@@ -16,6 +18,7 @@ abstract class AbstractCacheOppfrisker(private val caches: Set<CacheNøkkelConfi
     override fun oppfrisk(nøkkelElementer: CacheNøkkel) {
         val duration = measureTimeMillis {
             runCatching {
+                MDC.put(USER_ID, nøkkelElementer.id)
                 doOppfrisk(nøkkelElementer)
                 log.info("Oppfrisking av $nøkkelElementer OK")
             }.getOrElse {
