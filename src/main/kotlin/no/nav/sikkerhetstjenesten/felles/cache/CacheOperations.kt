@@ -19,8 +19,8 @@ interface CacheOperations {
 
     fun sizes(vararg caches: CacheNøkkelConfig): Map<String, Long>
 
-    val caches: List<CacheNøkkelConfig>
-        get() = emptyList()
+    val caches: Set<CacheNøkkelConfig>
+        get() = emptySet()
 
     fun sizes(): Map<String, Long> =
         sizes(*caches.toTypedArray())
