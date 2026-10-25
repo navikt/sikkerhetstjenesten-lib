@@ -25,6 +25,7 @@ class ValkeyCacheOperations(
     vararg cfgs: CachableRestConfig) : CacheOperations {
 
     private val log = getLogger(javaClass)
+    override val caches = cfgs.flatMap { it.caches }
     private val defaultTtlForCache = cfgs.flatMap { cfg ->
         cfg.caches.map { cache -> cache.fullName to cfg.varighet }
     }.toMap()

@@ -18,6 +18,12 @@ interface CacheOperations {
 
     fun sizes(vararg caches: CacheNøkkelConfig): Map<String, Long>
 
+    val caches: List<CacheNøkkelConfig>
+        get() = emptyList()
+
+    fun sizes(): Map<String, Long> =
+        sizes(*caches.toTypedArray())
+
 }
 
 inline fun <reified T : Any> CacheOperations.getOne(cfg: CacheNøkkelConfig, id: String): T? =
