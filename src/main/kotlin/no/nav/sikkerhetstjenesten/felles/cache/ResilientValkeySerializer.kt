@@ -15,6 +15,6 @@ class ResilientValkeySerializer(private val delegate: RedisSerializer<Any>) : Re
         runCatching {
             delegate.deserialize(bytes)
         }.onFailure {
-            log.warn("Kunne ikke deserialisere cache-entry, behandler som miss", it)
+            log.info("Kunne ikke deserialisere cache-entry, behandler som miss", it)
         }.getOrNull()
 }
