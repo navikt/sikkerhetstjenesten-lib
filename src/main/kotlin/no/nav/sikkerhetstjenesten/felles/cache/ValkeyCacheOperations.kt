@@ -131,13 +131,11 @@ class ValkeyCacheOperations(
                 cursor.forEach {
                     keyBytes -> batch += keyBytes.toString(UTF_8)
                     if (batch.size == BATCH_SIZE) {
-                        deleted += batch.size.toLong()
-                        valkey.delete(batch)
+                        deleted += valkey.delete(batch) ?: 0L
                         batch.clear()
                     }
                 }
-                deleted += batch.size.toLong()
-                valkey.delete(batch)
+                deleted += valkey.delete(batch) ?: 0L
                 deleted.also {
                     log.info("Tømt cache {} for {} nøkler", cache.name, it)
                 }
