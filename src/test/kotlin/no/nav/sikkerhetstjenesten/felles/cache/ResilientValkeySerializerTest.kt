@@ -5,11 +5,9 @@ import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
-import io.micrometer.core.instrument.simple.SimpleMeterRegistry
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import no.nav.sikkerhetstjenesten.felles.cache.ResilientValkeySerializer
 import org.springframework.data.redis.serializer.RedisSerializer
 import org.springframework.data.redis.serializer.SerializationException
 
@@ -18,7 +16,7 @@ class ResilientValkeySerializerTest : BehaviorSpec({
     val bytes = "data".toByteArray()
     val obj = "verdi"
 
-    fun serializer(delegate: RedisSerializer<Any>, registry: SimpleMeterRegistry = SimpleMeterRegistry()) =
+    fun serializer(delegate: RedisSerializer<Any>) =
         ResilientValkeySerializer(delegate)
 
     Given("deserialisering") {

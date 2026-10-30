@@ -14,6 +14,7 @@ import no.nav.sikkerhetstjenesten.felles.rest.ClusterAddingTimedAspectTest.TestC
 import no.nav.sikkerhetstjenesten.felles.rest.health.ObservabilityAutoConfiguration
 import no.nav.sikkerhetstjenesten.felles.security.AuthContext
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils
+import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.current
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.DEV_GCP_CLUSTER
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.PROD_GCP_CLUSTER
 import org.springframework.beans.factory.annotation.Autowired
@@ -40,7 +41,7 @@ class ClusterAddingTimedAspectTest(
     init {
         beforeEach {
             mockkObject(ClusterUtils)
-            every { ClusterUtils.current } returns DEV_GCP_CLUSTER
+            every { current } returns DEV_GCP_CLUSTER
             every { authContext.systemNavn } returns "my-app"
         }
 
@@ -61,7 +62,7 @@ class ClusterAddingTimedAspectTest(
             When("token-verdier endres mellom kall") {
                 Then("brukes oppdaterte verdier per kall") {
                     every { authContext.systemNavn } returns "annen-app"
-                    every { ClusterUtils.current } returns PROD_GCP_CLUSTER
+                    every { current } returns PROD_GCP_CLUSTER
                     timedService.execute()
                     registry.get("test.execute")
                         .tag("cluster", "prod-gcp")

@@ -13,12 +13,14 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Fallback
 import org.springframework.http.HttpStatus.CONTINUE
 import org.springframework.security.config.observation.SecurityObservationSettings
+import org.zalando.logbook.HeaderFilter
 import org.zalando.logbook.Logbook
 import org.zalando.logbook.attributes.AttributeExtractor
 import org.zalando.logbook.core.Conditions.exclude
 import org.zalando.logbook.core.Conditions.requestTo
 import org.zalando.logbook.core.DefaultHttpLogWriter
 import org.zalando.logbook.core.DefaultSink
+import org.zalando.logbook.core.HeaderFilters.defaultValue
 import tools.jackson.databind.json.JsonMapper
 
 private val BRUKER_ID_REGEX = Regex("""(?<!\d)\d{11}(?!\d)""")
@@ -58,8 +60,14 @@ class NotificationAutoConfiguration {
 
     @Bean
     @ConditionalOnGCP
-    fun logbook(formatter: LogbookPrettyPrintingFormatter, jwtClaimsExtractor: AttributeExtractor) =
+    fun logbook(
+        formatter: LogbookPrettyPrintingFormatter,
+        jwtClaimsExtractor: AttributeExtractor,
+        headerFilters: List<HeaderFilter>,
+    ) =
         Logbook.builder()
+            .headerFilter(defaultValue())
+            .headerFilters(headerFilters)
             .strategy(LogbookStatusAtLeastExcluding(CONTINUE))
             .bodyFilter { _, body ->
                 BRUKER_ID_REGEX.replace(body) { m -> m.value.maskFnr() }
