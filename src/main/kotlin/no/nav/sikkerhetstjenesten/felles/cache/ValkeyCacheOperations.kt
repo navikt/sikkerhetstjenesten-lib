@@ -122,7 +122,7 @@ class ValkeyCacheOperations(
     }
 
     override fun clear(cache: CacheNøkkelConfig): Long {
-        //check(!isProd) { "Clear er ikke støttet i prod for å unngå utilsiktet sletting av cache-innhold" }
+        //  check(!isProd) { "Clear er ikke støttet i prod for å unngå utilsiktet sletting av cache-innhold" }
         log.info("Tømmer cache {}", cache.name)
         return valkey.execute {
             (it.keyCommands().scan(scanOptions(cache)) as Cursor<ByteArray>).use { cursor ->
@@ -138,7 +138,9 @@ class ValkeyCacheOperations(
                 }
                 deleted += batch.size.toLong()
                 valkey.delete(batch)
-                deleted
+                deleted.also {
+                    log.info("Tømt cache {} for {} nøkler", cache.name, it)
+                }
             }
         }
     }
