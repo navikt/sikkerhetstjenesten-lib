@@ -86,7 +86,7 @@ dependencies {
     testImplementation(libs.bundles.kotest)
     testImplementation(libs.spring.boot.micrometer.metrics.test)
     testImplementation(libs.springmockk)
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.0.3")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:6.1.3")
 }
 
 tasks.test {
