@@ -1,7 +1,10 @@
 package no.nav.sikkerhetstjenesten.felles.cache
 
 import no.nav.sikkerhetstjenesten.felles.leder.LeaderAware
+import no.nav.sikkerhetstjenesten.felles.rest.ConsumerAwareHandlerInterceptor.Companion.USER_ID
+import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.maskFnr
 import org.slf4j.LoggerFactory.getLogger
+import org.slf4j.MDC
 import org.springframework.data.redis.annotation.RedisListener
 
 private const val CHANNEL_EXPIRED = "__keyevent@0__:expired"
@@ -20,9 +23,10 @@ class ValkeyEventListeningCacheOppfrisker(erLeder: Boolean = true,
     fun onEvent(nokkel: CacheNøkkel) {
 
         somLeder {
-            log.info(" mottok event for nøkkel ${nokkel.cacheName}")
+            log.info("mottok event for nøkkel ${nokkel.cacheName}")
+            MDC.put(USER_ID, nokkel.id.maskFnr())
             oppfriskere.firstOrNull { it.cacheName == nokkel.cacheName }?.run {
-                log.info("Oppfrisker for cache ${nokkel.cacheName} fant matchende oppfrisker, oppfrisker cache $nokkel")
+                log.info("Oppfrisker for cache ${nokkel.cacheName} fant matchende oppfrisker ${javaClass.simpleName}, oppfrisker cache $nokkel")
                 oppfrisk(nokkel)
             }
         }
