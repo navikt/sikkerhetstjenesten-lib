@@ -14,12 +14,13 @@ fun normalizeVersion(raw: String): String = raw.trim().removePrefix("v").removeP
 version = providers
     .gradleProperty("releaseVersion")
     .orElse(providers.environmentVariable("RELEASE_VERSION"))
-    .orElse("0.1.0-SNAPSHOT")
+    .orElse("1.1.1-SNAPSHOT")
     .map(::normalizeVersion)
     .get()
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
         url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
     }
@@ -69,7 +70,8 @@ dependencies {
     api(libs.spring.boot.starter.graphql)
     api(libs.logbook.spring.boot.starter)
     api(libs.jackson.module.kotlin)
-    api(libs.spring.boot.starter.data.redis)
+    api(libs.spring.boot.starter.data.valkey)
+    api(libs.spring.messaging)
     api(libs.bundles.observability)
     api(libs.spring.boot.starter.actuator)
     api(libs.spring.boot.starter.aspectj)

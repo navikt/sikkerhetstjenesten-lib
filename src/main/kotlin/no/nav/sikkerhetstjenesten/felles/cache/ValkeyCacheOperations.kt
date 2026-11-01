@@ -4,23 +4,25 @@ import no.nav.sikkerhetstjenesten.felles.cache.CacheAutoConfiguration.Companion.
 import no.nav.sikkerhetstjenesten.felles.utils.cluster.ClusterUtils.Companion.isLocalOrTest
 import org.slf4j.LoggerFactory.getLogger
 import org.springframework.core.io.ClassPathResource
-import org.springframework.data.redis.core.Cursor
-import org.springframework.data.redis.core.ScanOptions
-import org.springframework.data.redis.core.StringRedisTemplate
-import org.springframework.data.redis.core.script.RedisScript
+import io.valkey.springframework.data.valkey.core.Cursor
+import io.valkey.springframework.data.valkey.core.ScanOptions
+import io.valkey.springframework.data.valkey.core.StringValkeyTemplate
+import io.valkey.springframework.data.valkey.core.script.ValkeyScript
 import java.time.Duration
 import java.util.UUID
 import kotlin.reflect.KClass
 import kotlin.text.Charsets.UTF_8
 import kotlin.time.TimeSource.Monotonic.markNow
 import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.maskFnr
+import tools.jackson.databind.json.JsonMapper
 
 
 private val BATCH_SIZE = 10_000
-private val SCRIPT = RedisScript.of(ClassPathResource("scripts/count-all-keys.lua"), List::class.java)
+private val SCRIPT = ValkeyScript.of(ClassPathResource("scripts/count-all-keys.lua"), String::class.java)
+private val SCRIPT_RESULT_MAPPER = JsonMapper.builder().build()
 
 class ValkeyCacheOperations(
-    private val valkey: StringRedisTemplate,
+    private val valkey: StringValkeyTemplate,
     vararg cfgs: CachableRestConfig) : CacheOperations {
 
     private val log = getLogger(javaClass)
@@ -146,11 +148,15 @@ class ValkeyCacheOperations(
         markNow().let { start ->
             val prefixes = caches.map { "${it.tilNøkkel("")}*" }
 
-            @Suppress("UNCHECKED_CAST")
-            val results = (valkey.execute(SCRIPT, emptyList(), *prefixes.toTypedArray()) as List<Number>)
-                .map(Number::toLong)
+            val result = checkNotNull(valkey.execute(SCRIPT, emptyList(), *prefixes.toTypedArray())) {
+                "Cache-størrelsesskript returnerte null"
+            }
+            val counts = SCRIPT_RESULT_MAPPER.readValue(result, LongArray::class.java)
+            check(counts.size == caches.size) {
+                "Cache-størrelsesskript returnerte ${counts.size} resultater for ${caches.size} cacher"
+            }
             val totalDuration = start.elapsedNow()
-            return caches.zip(results).associate {
+            return caches.zip(counts.toList()).associate {
                 (cache, count) -> cache.fullName to count
             }
                 .also { log.info("Cache størrelser {} slått opp, tok {}ms", it, totalDuration.inWholeMilliseconds) }
@@ -233,4 +239,3 @@ class ValkeyCacheOperations(
             }
         }
 }
-

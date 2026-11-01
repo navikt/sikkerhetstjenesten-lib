@@ -1,10 +1,10 @@
 package no.nav.sikkerhetstjenesten.felles.cache
 
 import org.slf4j.LoggerFactory.getLogger
-import org.springframework.data.redis.serializer.RedisSerializer
+import io.valkey.springframework.data.valkey.serializer.ValkeySerializer
 
 
-class ResilientValkeySerializer(private val delegate: RedisSerializer<Any>) : RedisSerializer<Any> {
+class ResilientValkeySerializer(private val delegate: ValkeySerializer<Any>) : ValkeySerializer<Any> {
 
     private val log = getLogger(javaClass)
 

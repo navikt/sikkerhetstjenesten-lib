@@ -2,15 +2,15 @@ package no.nav.sikkerhetstjenesten.felles.cache
 
 
 import no.nav.sikkerhetstjenesten.felles.rest.Pingable
-import org.springframework.boot.data.redis.autoconfigure.DataRedisProperties
-import org.springframework.data.redis.core.StringRedisTemplate
+import io.valkey.springframework.boot.autoconfigure.data.valkey.ValkeyProperties
+import io.valkey.springframework.data.valkey.core.StringValkeyTemplate
 import java.net.URI
 
 private const val PONG = "pong"
 
 class CachePingable(
-    private val valkey: StringRedisTemplate,
-    properties: DataRedisProperties) : Pingable {
+    private val valkey: StringValkeyTemplate,
+    properties: ValkeyProperties) : Pingable {
 
     override val pingEndpoint = URI.create("${properties.host}:${properties.port}")
     override val name = "Cache"

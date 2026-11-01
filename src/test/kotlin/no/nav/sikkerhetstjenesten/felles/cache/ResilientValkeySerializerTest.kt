@@ -8,22 +8,22 @@ import io.kotest.matchers.types.shouldBeInstanceOf
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.springframework.data.redis.serializer.RedisSerializer
-import org.springframework.data.redis.serializer.SerializationException
+import io.valkey.springframework.data.valkey.serializer.ValkeySerializer
+import io.valkey.springframework.data.valkey.serializer.SerializationException
 
 class ResilientValkeySerializerTest : BehaviorSpec({
 
     val bytes = "data".toByteArray()
     val obj = "verdi"
 
-    fun serializer(delegate: RedisSerializer<Any>) =
+    fun serializer(delegate: ValkeySerializer<Any>) =
         ResilientValkeySerializer(delegate)
 
     Given("deserialisering") {
 
         When("deserialisering lykkes") {
             Then("returnerer verdien fra delegate") {
-                val delegate = mockk<RedisSerializer<Any>> {
+                val delegate = mockk<ValkeySerializer<Any>> {
                     every { deserialize(bytes) } returns obj
                 }
                 serializer(delegate).deserialize(bytes) shouldBe obj
@@ -32,7 +32,7 @@ class ResilientValkeySerializerTest : BehaviorSpec({
 
         When("delegate kaster SerializationException") {
             Then("returnerer null i stedet for å propagere unntaket") {
-                val delegate = mockk<RedisSerializer<Any>> {
+                val delegate = mockk<ValkeySerializer<Any>> {
                     every { deserialize(bytes) } throws SerializationException("Ugyldig JSON")
                 }
                 serializer(delegate).deserialize(bytes).shouldBeNull()
@@ -41,7 +41,7 @@ class ResilientValkeySerializerTest : BehaviorSpec({
 
         When("bytes er null") {
             Then("delegerer null til underliggende serializer") {
-                val delegate = mockk<RedisSerializer<Any>> {
+                val delegate = mockk<ValkeySerializer<Any>> {
                     every { deserialize(null) } returns null
                 }
                 serializer(delegate).deserialize(null).shouldBeNull()
@@ -54,7 +54,7 @@ class ResilientValkeySerializerTest : BehaviorSpec({
 
         When("serialisering lykkes") {
             Then("delegerer direkte til underliggende serializer") {
-                val delegate = mockk<RedisSerializer<Any>> {
+                val delegate = mockk<ValkeySerializer<Any>> {
                     every { serialize(obj) } returns bytes
                 }
                 assertSoftly {
@@ -66,7 +66,7 @@ class ResilientValkeySerializerTest : BehaviorSpec({
 
         When("delegate kaster SerializationException under serialisering") {
             Then("propagerer unntaket uten å fange det") {
-                val delegate = mockk<RedisSerializer<Any>> {
+                val delegate = mockk<ValkeySerializer<Any>> {
                     every { serialize(any()) } throws SerializationException("Kan ikke serialisere")
                 }
                 val result = runCatching { serializer(delegate).serialize(obj) }

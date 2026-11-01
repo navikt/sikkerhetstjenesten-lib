@@ -1,7 +1,7 @@
 package no.nav.sikkerhetstjenesten.felles.rest
 
 
-import io.lettuce.core.RedisCommandTimeoutException
+import glide.api.models.exceptions.TimeoutException
 import org.springframework.core.annotation.AliasFor
 import org.springframework.dao.QueryTimeoutException
 import org.springframework.resilience.annotation.Retryable
@@ -21,4 +21,4 @@ import kotlin.reflect.KClass
 @MustBeDocumented
 @Service
 annotation class RestRetryingWhenRecoverableService(
-    @get:AliasFor(annotation = Retryable::class) val value: Array<KClass<out Throwable>> = [RecoverableRestException::class, SocketTimeoutException::class, ResourceAccessException::class, RedisCommandTimeoutException::class, QueryTimeoutException::class])
+    @get:AliasFor(annotation = Retryable::class) val value: Array<KClass<out Throwable>> = [RecoverableRestException::class, SocketTimeoutException::class, ResourceAccessException::class, TimeoutException::class, QueryTimeoutException::class])

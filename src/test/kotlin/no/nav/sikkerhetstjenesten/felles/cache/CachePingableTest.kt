@@ -7,19 +7,19 @@ import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import no.nav.sikkerhetstjenesten.felles.cache.CachePingable
-import org.springframework.boot.data.redis.autoconfigure.DataRedisProperties
-import org.springframework.data.redis.connection.RedisConnection
-import org.springframework.data.redis.core.RedisCallback
-import org.springframework.data.redis.core.StringRedisTemplate
+import io.valkey.springframework.boot.autoconfigure.data.valkey.ValkeyProperties
+import io.valkey.springframework.data.valkey.connection.ValkeyConnection
+import io.valkey.springframework.data.valkey.core.ValkeyCallback
+import io.valkey.springframework.data.valkey.core.StringValkeyTemplate
 
 class CachePingableTest : BehaviorSpec({
 
-    val connection = mockk<RedisConnection>(relaxed = true)
-    val valkey = mockk<StringRedisTemplate>()
-    every { valkey.execute<Unit>(any<RedisCallback<Unit>>()) } answers {
-        firstArg<RedisCallback<Unit>>().doInRedis(connection)
+    val connection = mockk<ValkeyConnection>(relaxed = true)
+    val valkey = mockk<StringValkeyTemplate>()
+    every { valkey.execute<Unit>(any<ValkeyCallback<Unit>>()) } answers {
+        firstArg<ValkeyCallback<Unit>>().doInValkey(connection)
     }
-    val pingable = CachePingable(valkey, DataRedisProperties().apply {
+    val pingable = CachePingable(valkey, ValkeyProperties().apply {
         host = "localhost"
         port = 6379
     })

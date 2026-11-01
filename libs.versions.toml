@@ -6,7 +6,8 @@ logbook = "4.1.0"
 opentelemetry = "2.30.0"
 opentelemetry-alpha = "2.30.0-alpha"
 slack-api = "1.49.0"
-spring-boot = "4.1.1"
+spring-boot = "4.1.2"
+spring-data-valkey = "2.0.1"
 springdoc = "3.1.0"
 springmockk = "5.0.1"
 
@@ -27,8 +28,9 @@ slack = { module = "com.slack.api:slack-api-client-kotlin-extension", version.re
 spring-boot-micrometer-metrics-test = { module = "org.springframework.boot:spring-boot-micrometer-metrics-test" }
 spring-boot-starter-actuator = { module = "org.springframework.boot:spring-boot-starter-actuator" }
 spring-boot-starter-aspectj = { module = "org.springframework.boot:spring-boot-starter-aspectj" }
-spring-boot-starter-data-redis = { module = "org.springframework.boot:spring-boot-starter-data-redis" }
+spring-boot-starter-data-valkey = { module = "io.valkey.springframework.boot:spring-boot-starter-data-valkey", version.ref = "spring-data-valkey" }
 spring-boot-starter-graphql = { module = "org.springframework.boot:spring-boot-starter-graphql" }
+spring-messaging = { module = "org.springframework:spring-messaging" }
 spring-boot-starter-oauth2-client = { module = "org.springframework.boot:spring-boot-starter-oauth2-client" }
 spring-boot-starter-oauth2-resource-server = { module = "org.springframework.boot:spring-boot-starter-oauth2-resource-server" }
 spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web" }

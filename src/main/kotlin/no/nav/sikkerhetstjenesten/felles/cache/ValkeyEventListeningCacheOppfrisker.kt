@@ -5,7 +5,7 @@ import no.nav.sikkerhetstjenesten.felles.rest.ConsumerAwareHandlerInterceptor.Co
 import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.maskFnr
 import org.slf4j.LoggerFactory.getLogger
 import org.slf4j.MDC
-import org.springframework.data.redis.annotation.RedisListener
+import io.valkey.springframework.data.valkey.annotation.ValkeyListener
 
 private const val CHANNEL_EXPIRED = "__keyevent@0__:expired"
 private const val CHANNEL_DELETED = "__keyevent@0__:del"
@@ -18,8 +18,8 @@ class ValkeyEventListeningCacheOppfrisker(erLeder: Boolean = true,
        log.info("ValkeyEventListeningCacheOppfrisker opprettet med ${oppfriskere.size} oppfriskere")
     }
 
-    @RedisListener(CHANNEL_EXPIRED)
-    @RedisListener(CHANNEL_DELETED)
+    @ValkeyListener(CHANNEL_EXPIRED)
+    @ValkeyListener(CHANNEL_DELETED)
     fun onEvent(nokkel: CacheNøkkel) {
 
         somLeder {
