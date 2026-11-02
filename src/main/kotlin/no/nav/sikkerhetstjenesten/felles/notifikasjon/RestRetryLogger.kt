@@ -11,11 +11,10 @@ class RestRetryLogger {
 
     @EventListener(MethodRetryEvent::class)
     fun onEvent(event: MethodRetryEvent) {
-        val args = event.source.arguments.toSet()
         val metode = event.method.name
         when (val t = event.failure) {
             is RetryException -> if (t.exceptions.size > 1) {
-                log.warn("Aborterer metode '$metode' etter ${t.exceptions.size} forsøk grunnet ${t.cause.javaClass.simpleName} $args", t)
+                log.warn("Aborterer metode '$metode' etter ${t.exceptions.size} forsøk grunnet ${t.cause.javaClass.simpleName}", t)
             }
             else -> log.info("Feil i '$metode' grunnet ${t.javaClass.simpleName}", t)
         }
