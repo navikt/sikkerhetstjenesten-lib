@@ -55,4 +55,8 @@ abstract class AbstractSyncGraphQLClientAdapter(
     @NoCoverageAnalysis
     override fun toString() =
         "${javaClass.simpleName} [graphQlClient=$client, cfg=$cfg]"
+
+    companion object {
+        val PING_QUERY = """{"query":"{__typename}"}"""
+    }
 }
