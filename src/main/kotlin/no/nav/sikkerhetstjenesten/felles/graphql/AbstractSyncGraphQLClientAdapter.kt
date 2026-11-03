@@ -53,7 +53,7 @@ abstract class AbstractSyncGraphQLClientAdapter(
             errorHandler.handle(cfg.baseUri, it)
         }
 
-    protected fun ping() =
+     fun ping() =
         client.document("{ __typename }")
             .retrieveSync("__typename")
             .toEntity<String>()
@@ -61,5 +61,5 @@ abstract class AbstractSyncGraphQLClientAdapter(
     @NoCoverageAnalysis
     override fun toString() =
         "${javaClass.simpleName} [graphQlClient=$client, cfg=$cfg]"
-    
+
 }
