@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory.getLogger
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.ResolvableType
 import org.springframework.graphql.client.GraphQlClient
+import org.springframework.graphql.client.toEntity
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
 
 abstract class AbstractSyncGraphQLClientAdapter(
@@ -52,13 +53,13 @@ abstract class AbstractSyncGraphQLClientAdapter(
             errorHandler.handle(cfg.baseUri, it)
         }
 
+    protected fun ping() =
+        client.document("{ __typename }")
+            .retrieveSync("__typename")
+            .toEntity<String>()
+
     @NoCoverageAnalysis
     override fun toString() =
         "${javaClass.simpleName} [graphQlClient=$client, cfg=$cfg]"
-
-    companion object {
-        val PING_QUERY = """
-            {"query":"{__typename}"}
-            """.trimIndent()
-    }
+    
 }
