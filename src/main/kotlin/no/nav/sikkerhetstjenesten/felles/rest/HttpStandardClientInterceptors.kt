@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component
 import org.zalando.logbook.spring.LogbookClientHttpRequestInterceptor
 
 @Component
-class HttpClientInterceptors(private val logbook: ObjectProvider<LogbookClientHttpRequestInterceptor>) {
+class HttpStandardClientInterceptors(private val logbook: ObjectProvider<LogbookClientHttpRequestInterceptor>) {
     fun configure(interceptors: MutableList<ClientHttpRequestInterceptor>) {
         interceptors.addFirst(DownstreamUriCapturingInterceptor())
         logbook.ifAvailable { interceptors.add(it) }
