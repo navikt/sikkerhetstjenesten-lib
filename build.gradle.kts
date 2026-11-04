@@ -49,12 +49,17 @@ publishing {
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(17))
+        languageVersion.set(JavaLanguageVersion.of(27))
     }
 }
 
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(27)
+}
+
+// Kotlin 2.4 supports at most JVM target 26, so align Java with it while running on the JDK 27 toolchain
+tasks.withType<JavaCompile>().configureEach {
+    options.release.set(26)
 }
 
 dependencies {

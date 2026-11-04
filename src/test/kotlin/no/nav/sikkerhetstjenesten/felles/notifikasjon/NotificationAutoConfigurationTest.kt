@@ -16,6 +16,7 @@ import org.springframework.test.web.client.match.MockRestRequestMatchers.header
 import org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo
 import org.springframework.test.web.client.response.MockRestResponseCreators.withSuccess
 import org.springframework.web.client.RestClient
+import org.springframework.web.client.body
 import org.zalando.logbook.HeaderFilter
 import org.zalando.logbook.Logbook
 import org.zalando.logbook.core.HeaderFilters.replaceHeaders
@@ -66,19 +67,19 @@ class NotificationAutoConfigurationTest {
                     .header("Authorization", authorization)
                     .header("ident", identifier)
                     .header("X-Identifikator", identifier)
-                    .retrieve().body(String::class.java) shouldBe """{"ident":"$identifier"}"""
+                    .retrieve().body<String>() shouldBe """{"ident":"$identifier"}"""
 
                 server.verify()
                 val messages = appender.list.map { mapper.readTree(it.formattedMessage) }
-                val request = messages.single { it.path("type").asText() == "request" }
+                val request = messages.single { it.path("type").asString() == "request" }
                 val headers = request.path("headers")
-                headers.path("Authorization").get(0).asText() shouldBe "XXX"
+                headers.path("Authorization").get(0).asString() shouldBe "XXX"
                 names.forEachIndexed { index, name ->
-                    headers.path(name).get(0).asText() shouldBe
+                    headers.path(name).get(0).asString() shouldBe
                         if (index < filterCount) "MASKED" else identifier
                 }
-                val response = messages.single { it.path("type").asText() == "response" }
-                response.path("body").path("ident").asText() shouldBe "1234*******"
+                val response = messages.single { it.path("type").asString() == "response" }
+                response.path("body").path("ident").asString() shouldBe "1234*******"
             }
         } finally {
             logger.detachAppender(appender)
