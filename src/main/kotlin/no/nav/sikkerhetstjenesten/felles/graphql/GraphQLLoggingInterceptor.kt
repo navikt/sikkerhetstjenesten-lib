@@ -10,6 +10,8 @@ class GraphQLLoggingInterceptor : SyncGraphQlClientInterceptor {
 
     override fun intercept(req: ClientGraphQlRequest, chain: Chain) =
         chain.next(req).also {
+            if (req.document != PING_QUERY) {
+
             log.trace("Eksekverte {} med variabler {}", req.document, req.variables)
         }
 }

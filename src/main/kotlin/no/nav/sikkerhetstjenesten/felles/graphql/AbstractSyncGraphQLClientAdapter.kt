@@ -54,12 +54,14 @@ abstract class AbstractSyncGraphQLClientAdapter(
         }
 
      fun ping() =
-        client.document("{ __typename }")
-            .retrieveSync("__typename")
-            .toEntity<String>()
+         client.document(PING_QUERY).executeSync()
+
 
     @NoCoverageAnalysis
     override fun toString() =
         "${javaClass.simpleName} [graphQlClient=$client, cfg=$cfg]"
 
+     companion object {
+         const val PING_QUERY = "{ __typename }"
+    }
 }
