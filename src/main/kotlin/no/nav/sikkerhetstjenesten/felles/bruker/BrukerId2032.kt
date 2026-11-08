@@ -6,7 +6,7 @@ import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.maskF
 
 data class BrukerId2032(@JsonValue val verdi: String) : Comparable<BrukerId2032> {
     init {
-        require(verdi.length == BRUKERID_LENGTH && verdi.all { it.isDigit() }) {
+        require(verdi.length == BRUKERID_LENGTH && verdi.all { it in '0'..'9' }) {
             "BrukerId2032 må bestå av 11 siffer"
         }
         require(kontrollrest(verdi, W1) in LOVLIGE) {
