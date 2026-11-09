@@ -36,6 +36,7 @@ const val PROD_BASE_PATH = "/api/v1"
 @SecurityScheme(bearerFormat = "JWT", name = "bearerAuth", scheme = "bearer", type = HTTP)
 @RestController
 @RequestMapping
+@Tag(name = "")
 @SecurityRequirement(name = "bearerAuth")
 annotation class ProdController(
     @get:AliasFor(annotation = RequestMapping::class, attribute = "value") val value: Array<String> = [PROD_BASE_PATH],
