@@ -27,6 +27,6 @@ class CacheMeteredErrorHandler(private val registry: MeterRegistry) : CacheError
     private fun record(op: String, cache: Cache, e: RuntimeException) {
         registry.counter("cache.operation.failed", "op", op, "cache", cache.name,
             "exception", e.javaClass.simpleName).increment()
-        log.warn("Cache $op feilet for ${cache.name}: ${e.message}")
+        log.warn("Cache $op feilet for ${cache.name}: ${e.message}",e)
     }
 }

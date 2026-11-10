@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.spring)
 }
 
+
 group = "no.nav.felles"
 
 fun normalizeVersion(raw: String): String = raw.trim().removePrefix("v").removePrefix("V")
@@ -82,6 +83,7 @@ dependencies {
     api(libs.springdoc.openapi.webmvc.ui)
 
     // Used internally only
+    implementation(libs.caffeine)
     implementation(libs.spring.boot.starter.oauth2.client)
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.slack)

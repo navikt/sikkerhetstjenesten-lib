@@ -12,6 +12,7 @@ springmockk = "5.0.1"
 
 [libraries]
 boot-conditionals = { module = "no.nav.boot:boot-conditionals", version.ref = "boot-conditionals" }
+caffeine = { module = "com.github.ben-manes.caffeine:caffeine" }
 httpclient5 = { module = "org.apache.httpcomponents.client5:httpclient5" }
 jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
