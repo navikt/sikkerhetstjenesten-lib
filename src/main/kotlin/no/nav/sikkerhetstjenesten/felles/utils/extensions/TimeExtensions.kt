@@ -15,12 +15,12 @@ import kotlin.time.Duration
 import kotlin.time.toKotlinDuration
 
 object TimeExtensions {
-    val OSLO: ZoneId = ZoneId.of("Europe/Oslo")
-
+    val OSLO: ZoneId = ZoneId.of(OSLO_ZONE)
+    const val OSLO_ZONE = "Europe/Oslo"
     val ALLTID get() = LocalDate.now().plusYears(100)
     val IMORGEN get() = LocalDate.now().plusDays(1)
     val IGÅR get() = LocalDate.now().minusDays(1)
-    fun java.time.Duration.format() = this.toKotlinDuration().format()
+    fun java.time.Duration.format() = toKotlinDuration().format()
 
     fun Duration.format(): String {
         val days = inWholeDays
