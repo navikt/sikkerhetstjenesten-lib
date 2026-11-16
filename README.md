@@ -26,6 +26,7 @@ Shared CI/CD workflows used by `entra-proxy` and `populasjonstilgangskontroll`. 
 - `.github/workflows/reusable-gradle-build.yml` – Gradle build, detekt, tests, SBOM and Docker image push (`team` required; optional Node/Playwright and test report upload). Outputs `image` and `digest`.
 - `.github/workflows/reusable-nais-deploy.yml` – deploys `image` to the clusters in `clusters` (JSON list) using the environment `<cluster>:<team>`.
 - `.github/workflows/reusable-zizmor.yml` – zizmor workflow security scan (`advanced-security: false` for private repos without GHAS).
+- `.github/workflows/reusable-pages.yml` – publishes to GitHub Pages: optional Jekyll site, detekt report, JaCoCo/test reports and MkDocs site, using artifacts from `reusable-gradle-build.yml` (enable `upload-test-reports` there for test reports).
 
 ```yaml
 jobs:
