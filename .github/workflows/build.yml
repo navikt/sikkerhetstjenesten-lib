@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main         # Push events on main branch
+    paths-ignore:
+      - ".github/workflows/reusable-*.yml"  # delte workflows skal ikke trigge release av biblioteket
 
 permissions:
   contents: read
