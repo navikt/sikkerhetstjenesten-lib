@@ -1,0 +1,36 @@
+name: zizmor (reusable)
+
+# Statisk analyse av workflows for sikkerhetsproblemer.
+# Se: https://docs.zizmor.sh/
+
+on:
+  workflow_call:
+    inputs:
+      advanced-security:
+        description: "Last opp funn til Code Scanning (krever GitHub Advanced Security på private repoer)"
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  zizmor:
+    name: zizmor
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      security-events: write  # opplasting av SARIF til Code Scanning
+      actions: read           # zizmor leser workflow-metadata via GH API
+    steps:
+      - name: Sjekker ut kode
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Kjør zizmor
+        uses: zizmorcore/zizmor-action@45d7276c9ca790aabd705e31ca99c6185c3e76dd # v0.8.1
+        with:
+          advanced-security: ${{ inputs.advanced-security }}

@@ -18,3 +18,35 @@ Included candidates:
 - `no.nav.felles.notifikasjon.LogbookPrettyPrintingFormatter`
 
 This is intentionally framework-facing but avoids app-specific business logic or claims handling.
+
+## Reusable GitHub Actions workflows
+
+Shared CI/CD workflows used by `entra-proxy` and `populasjonstilgangskontroll`. Reference them pinned to a commit SHA:
+
+- `.github/workflows/reusable-gradle-build.yml` – Gradle build, detekt, tests, SBOM and Docker image push (`team` required; optional Node/Playwright and test report upload). Outputs `image` and `digest`.
+- `.github/workflows/reusable-nais-deploy.yml` – deploys `image` to the clusters in `clusters` (JSON list) using the environment `<cluster>:<team>`.
+- `.github/workflows/reusable-zizmor.yml` – zizmor workflow security scan (`advanced-security: false` for private repos without GHAS).
+
+```yaml
+jobs:
+  build:
+    permissions:
+      checks: write
+      contents: read
+      id-token: write
+    uses: navikt/sikkerhetstjenesten-lib/.github/workflows/reusable-gradle-build.yml@<sha>
+    with:
+      team: my-team
+  deploy:
+    needs: build
+    permissions:
+      contents: read
+      id-token: write
+    uses: navikt/sikkerhetstjenesten-lib/.github/workflows/reusable-nais-deploy.yml@<sha>
+    with:
+      team: my-team
+      clusters: '["dev-gcp"]'
+      image: ${{ needs.build.outputs.image }}
+```
+
+Changes to `reusable-*.yml` do not trigger a library release.
