@@ -1,7 +1,6 @@
 package no.nav.sikkerhetstjenesten.felles.notifikasjon
 
 import no.nav.boot.conditionals.ConditionalOnGCP
-import no.nav.boot.conditionals.ConditionalOnNotProd
 import no.nav.sikkerhetstjenesten.felles.utils.extensions.DomainExtensions.maskFnr
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookNimbusJwtClaimsExtractor
 import no.nav.sikkerhetstjenesten.felles.notifikasjon.logbook.LogbookPrettyPrintingFormatter
@@ -11,8 +10,8 @@ import org.springframework.boot.autoconfigure.AutoConfiguration
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Fallback
+import org.springframework.data.redis.core.StringRedisTemplate
 import org.springframework.http.HttpStatus.CONTINUE
-import org.springframework.security.config.observation.SecurityObservationSettings
 import org.zalando.logbook.HeaderFilter
 import org.zalando.logbook.Logbook
 import org.zalando.logbook.attributes.AttributeExtractor
@@ -38,13 +37,31 @@ class NotificationAutoConfiguration {
 
     @Bean
     @Fallback
-    fun loggingMessagePublisher(): MessagePublisher = LoggingMessagePublisher()
+    fun localMessageDeduplicator() = MessageDeduplicator()
+
+    @Bean
+    @ConditionalOnGCP
+    fun redisMessageDeduplicator(valkey: StringRedisTemplate) = MessageDeduplicator(valkey)
+
+    @Bean
+    @Fallback
+    fun loggingMessagePublisher(
+        deduplicator: MessageDeduplicator,
+        @Value($$"${spring.application.name:}") applicationName: String,
+        @Value($$"${nais.cluster.name:local}") clusterName: String,
+    ): MessagePublisher =
+        DeduplicatingMessagePublisher(LoggingMessagePublisher(), deduplicator, applicationName, clusterName)
 
     @Bean
     @ConditionalOnGCP
     @ConditionalOnProperty(prefix = "slack", name = ["webhook"])
-    fun slackMessagePublisher(@Value($$"${slack.webhook}") url: String): MessagePublisher =
-        SlackMessagePublisher(url)
+    fun slackMessagePublisher(
+        @Value($$"${slack.webhook}") url: String,
+        deduplicator: MessageDeduplicator,
+        @Value($$"${spring.application.name:}") applicationName: String,
+        @Value($$"${nais.cluster.name:local}") clusterName: String,
+    ): MessagePublisher =
+        DeduplicatingMessagePublisher(SlackMessagePublisher(url), deduplicator, applicationName, clusterName)
 
     @Bean
     fun restRetryLogger() = RestRetryLogger()
