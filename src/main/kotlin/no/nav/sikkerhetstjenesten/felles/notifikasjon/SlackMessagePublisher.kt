@@ -21,7 +21,7 @@ import org.springframework.http.HttpStatus.OK
  * Publiserer meldinger til Slack via incoming webhook.
  */
 class SlackMessagePublisher(
-    @param:Value("\${slack.webhook:}") private val url: String,
+    @param:Value($$"${slack.webhook:}") private val url: String,
 ) : MessagePublisher {
 
     private val env = if (isProd) PROD else DEV

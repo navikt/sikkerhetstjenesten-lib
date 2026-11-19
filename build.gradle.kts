@@ -88,7 +88,6 @@ dependencies {
     implementation(libs.spring.boot.starter.oauth2.resource.server)
     implementation(libs.slack)
     implementation(libs.boot.conditionals)
-    testImplementation("org.junit.jupiter:junit-jupiter")
     testImplementation("org.springframework:spring-test")
     testImplementation(libs.bundles.kotest)
     testImplementation(libs.spring.boot.micrometer.metrics.test)

@@ -19,6 +19,30 @@ Included candidates:
 
 This is intentionally framework-facing but avoids app-specific business logic or claims handling.
 
+## Once-only notifications
+
+Auto-configured `MessagePublisher` beans support `infoOnce`, `warnOnce`, and `errorOnce`:
+
+```kotlin
+publisher.infoOnce(
+    key = "gruppevalidering:$image",
+    ttl = Duration.ofDays(30),
+    header = ":rocket:",
+    msg = "Validert grupper ved oppstart",
+)
+```
+
+Set `spring.application.name`. Markers are scoped by application, cluster, notification
+level, and caller-supplied key. In GCP they are claimed atomically in Redis with the
+requested TTL; no cache registration is needed. Outside GCP they use an expiring
+in-memory cache shared by the auto-configured publishers in that application context.
+Normal `info`, `warn`, `error`, and `publish` calls are unchanged.
+
+This guarantees at most one publishing attempt per marker lifetime, not delivery.
+Failures retain the marker until expiry, and cache eviction or clearing can allow
+another attempt sooner. Manually created or custom publishers must be wrapped in
+`DeduplicatingMessagePublisher` to support the once-only methods.
+
 ## Reusable GitHub Actions workflows
 
 Shared CI/CD workflows used by `entra-proxy` and `populasjonstilgangskontroll`. Reference them pinned to a commit SHA:
