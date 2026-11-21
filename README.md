@@ -1,3 +1,4 @@
+
 # NAV Kotlin Felles
 
 This repository contains the reusable infrastructure classes identified as candidates for extraction from the `entraproxy` and `populasjonstilgangskontroll` projects.
