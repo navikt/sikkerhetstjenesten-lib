@@ -31,7 +31,7 @@ class PingableHealthIndicatorTest : BehaviorSpec({
         }
         When("ping kaster exception") {
             Then("returneres DOWN med feilmelding og riktig endpoint") {
-                val pingable = StubPingable(onPing = { throw RuntimeException("Connection refused") })
+                val pingable = StubPingable { throw RuntimeException("Connection refused") }
                 val health = PingableHealthIndicator(pingable).health()
                 assertSoftly(health) {
                     status shouldBe DOWN
@@ -43,10 +43,9 @@ class PingableHealthIndicatorTest : BehaviorSpec({
         }
         When("annen pingEndpoint er konfigurert og ping feiler") {
             Then("inkluderes riktig pingEndpoint i DOWN-detaljer") {
-                val pingable = StubPingable(
-                    pingEndpoint = URI.create("http://other.com/health"),
-                    onPing = { throw RuntimeException("timeout") }
-                )
+                val pingable = StubPingable(URI.create("http://other.com/health")) {
+                    throw RuntimeException("timeout")
+                }
                 PingableHealthIndicator(pingable).health().details[ENDPOINT].toString() shouldBe "http://other.com/health"
             }
         }

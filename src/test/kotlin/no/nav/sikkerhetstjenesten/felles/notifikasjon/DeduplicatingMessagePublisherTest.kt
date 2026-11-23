@@ -28,7 +28,7 @@ class DeduplicatingMessagePublisherTest : BehaviorSpec({
     beforeEach {
         delegate = mockk(relaxed = true)
         time = AtomicLong()
-        deduplicator = MessageDeduplicator(ticker = time::get)
+        deduplicator = MessageDeduplicator { time.get() }
         publisher = publisher()
     }
 
@@ -70,7 +70,7 @@ class DeduplicatingMessagePublisherTest : BehaviorSpec({
 
         Then("application and cluster namespaces are independent") {
             publisher().infoOnce("image:v1", ttl, "header", "message")
-            publisher(application = "another").infoOnce("image:v1", ttl, "header", "message")
+            publisher("another").infoOnce("image:v1", ttl, "header", "message")
             publisher(cluster = "prod-gcp").infoOnce("image:v1", ttl, "header", "message")
 
             verify(exactly = 3) { delegate.info(any(), any()) }
@@ -129,7 +129,7 @@ class DeduplicatingMessagePublisherTest : BehaviorSpec({
                 shouldThrow<IllegalArgumentException> { publisher.infoOnce("key", duration, "header", "message") }
             }
             shouldThrow<IllegalArgumentException> {
-                publisher(application = "").infoOnce("key", ttl, "header", "message")
+                publisher("").infoOnce("key", ttl, "header", "message")
             }
 
             verify(exactly = 0) { delegate.info(any(), any()) }

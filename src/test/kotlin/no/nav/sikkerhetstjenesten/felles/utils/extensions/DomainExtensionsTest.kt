@@ -133,7 +133,7 @@ class DomainExtensionsTest : BehaviorSpec({
             Then("settes i MDC under block og fjernes etterpå") {
                 val traceId = "trace-id-test"
                 val userId = "user-id-test"
-                DomainExtensions.withMDC(verdier = mapOf("traceId" to traceId, "userId" to userId)) {
+                DomainExtensions.withMDC(mapOf("traceId" to traceId, "userId" to userId)) {
                     MDC.get("traceId") shouldBe traceId
                     MDC.get("userId") shouldBe userId
                 }
