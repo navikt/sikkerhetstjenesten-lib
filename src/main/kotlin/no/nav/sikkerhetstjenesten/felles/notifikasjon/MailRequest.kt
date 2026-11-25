@@ -4,7 +4,7 @@ data class MailRequest(val message: MailMessage, val saveToSentItems: Boolean) {
     data class MailMessage(
         val subject: String?,
         val body: MailBody,
-        val toRecipients: List<MailRecipient> = emptyList(),
+        val toRecipients: List<MailRecipient>,
         val ccRecipients: List<MailRecipient> = emptyList(),
         val bccRecipients: List<MailRecipient> = emptyList(),
         val replyTo: List<MailRecipient> = emptyList()) {
