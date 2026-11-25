@@ -2,7 +2,7 @@
 boot-conditionals = "6.1.0"
 kotlin = "2.4.21"
 kotest = "6.2.7"
-logbook = "4.1.0"
+logbook = "4.2.0"
 opentelemetry = "2.34.0"
 opentelemetry-alpha = "2.34.0-alpha"
 slack-api = "1.52.0"
