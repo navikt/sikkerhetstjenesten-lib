@@ -1,5 +1,5 @@
 [versions]
-boot-conditionals = "6.0.9"
+boot-conditionals = "6.1.0"
 kotlin = "2.4.21"
 kotest = "6.2.7"
 logbook = "4.1.0"
