@@ -22,15 +22,12 @@ abstract class AbstractCacheOppfrisker(private val cfg: CachableRestConfig) : Ca
                 doOppfrisk(nøkkelElementer)
                 log.info("Oppfrisking av $nøkkelElementer OK")
             }.getOrElse {
-                loggOppfriskingFeilet(nøkkelElementer, it)
+                log.warn("Oppfrisking av $nøkkelElementer feilet", it)
             }
         }
-        log.info("Oppfrisking tok ${duration}ms for $nøkkelElementer")
+        log.trace("Oppfrisking tok {}ms for {}", duration, nøkkelElementer)
     }
 
-    private fun loggOppfriskingFeilet(elementer: CacheNøkkel, feil: Throwable) {
-        log.warn("Oppfrisking av $elementer feilet", feil)
-    }
 }
 
 interface CacheOppfrisker {
