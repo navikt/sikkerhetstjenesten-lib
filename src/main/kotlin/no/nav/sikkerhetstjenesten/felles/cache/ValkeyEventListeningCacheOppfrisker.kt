@@ -21,15 +21,13 @@ class ValkeyEventListeningCacheOppfrisker(erLeder: Boolean = true,
     @RedisListener(CHANNEL_EXPIRED)
     @RedisListener(CHANNEL_DELETED)
     fun onEvent(nokkel: CacheNøkkel) {
-
         somLeder {
-            log.info("mottok event for nøkkel ${nokkel.cacheName}")
+            log.trace("mottok event for nøkkel ${nokkel.cacheName}")
             MDC.put(USER_ID, nokkel.id.maskFnr())
             oppfriskere.firstOrNull { it.cacheName == nokkel.cacheName }?.run {
-                log.info("Oppfrisker for cache ${nokkel.cacheName} fant matchende oppfrisker ${javaClass.simpleName}, oppfrisker cache $nokkel")
+                log.trace("Oppfrisker for ${nokkel.cacheName} fant oppfrisker ${javaClass.simpleName}")
                 oppfrisk(nokkel)
             }
         }
     }
-
 }
